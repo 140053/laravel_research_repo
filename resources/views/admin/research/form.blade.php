@@ -39,6 +39,11 @@
         @endif
     </div>
 
+    <div>
+        <label class="block font-semibold">Citation</label>
+        <textarea name="citation" rows="3" class="w-full p-2 border rounded">{{ old('citation', $paper->citation ?? '') }}</textarea>
+    </div>
+
     {{-- Editors --}}
     <div>
         <label class="block font-semibold">Editors (optional)</label>

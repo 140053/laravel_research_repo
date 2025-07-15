@@ -7,8 +7,33 @@ use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
+use App\Imports\ResearchPaperImport;
+use Maatwebsite\Excel\Facades\Excel;
+
+
 class ResearchPaperController extends Controller
 {
+    //import 
+    public function showImportForm()
+    {
+        return view('admin.research.import.index');
+    }
+
+    /**
+     * Handle the import of research papers from a CSV file.
+     */
+    public function handleImport(Request $request)
+    {
+        $request->validate([
+            'csv_file' => 'required|mimes:csv,txt,xlsx|max:2048',
+        ]);
+
+        Excel::import(new ResearchPaperImport, $request->file('csv_file'));
+
+        return redirect()->route('admin.research.index')->with('success', 'Research papers imported successfully.');
+    }
+
+
     /**
      * Display a listing of the resource.
      */

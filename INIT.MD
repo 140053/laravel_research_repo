@@ -15,3 +15,8 @@ composer require spatie/laravel-permission
  Admin / User Roles
 composer require laravel/breeze --dev
 php artisan breeze:install
+
+
+
+
+## php artisan migrate:fresh --seed

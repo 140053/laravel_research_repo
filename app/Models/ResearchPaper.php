@@ -14,12 +14,14 @@ class ResearchPaper extends Model
         'tm',
         'type',
         'publisher',
+        'citation', // 👈 add this
         'isbn',
         'abstract',
         'year',
         'department',
         'pdf_path',
         'external_link',
+        'keyword', // ✅ add this
     ];
     
 
