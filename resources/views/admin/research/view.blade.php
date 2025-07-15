@@ -61,6 +61,15 @@
                     <p class="text-gray-800 dark:text-gray-300">{{ $paper->department }}</p>
                 </div>
 
+                {{-- Keyword --}}
+                @if ($paper->keyword)
+                <div>
+                    <h3 class="text-lg font-bold">Keywords</h3>
+                    <p class="text-gray-800 dark:text-gray-300">{{ $paper->keyword }}</p>
+                </div>
+                @endif
+
+
                 {{-- Tags --}}
                 <div class="md:col-span-2">
                     <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400 uppercase">Tags</h3>
@@ -76,6 +85,13 @@
                         <p class="text-gray-400">No tags provided.</p>
                     @endif
                 </div>
+
+                @if ($paper->citation)
+                    <div>
+                        <h3 class="text-lg font-bold">Citation</h3>
+                        <p class="text-gray-800 dark:text-gray-300 whitespace-pre-line">{{ $paper->citation }}</p>
+                    </div>
+                @endif
 
                 {{-- External Link --}}
                 @if ($paper->external_link)

@@ -13,18 +13,20 @@ return new class extends Migration
     {
         Schema::create('research_papers', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->text('authors');
+            $table->string('title')->comment('Title of the research paper');
+            $table->text('authors')->nullable();
             $table->text('editors')->nullable();
-            $table->enum('tm', ['P', 'NP']);
-            $table->enum('type', ['Journal', 'Conference', 'Book', 'Thesis', 'Report']);
+            $table->enum('tm', ['P', 'NP'])->default('P')->comment('P = Published, NP = Not Published');
+            $table->enum('type', ['Journal', 'Conference', 'Book', 'Thesis', 'Report'])->default('Journal');
             $table->string('publisher')->nullable();
             $table->string('isbn')->nullable();
-            $table->text('abstract');
-            $table->year('year');
-            $table->string('department');
+            $table->text('abstract')->nullable();
+            $table->year('year')->nullable();
+            $table->string('department')->nullable();
             $table->string('pdf_path')->nullable();
             $table->string('external_link')->nullable();
+            $table->text('citation')->nullable();
+            $table->text('keyword')->nullable()->after('citation');
             $table->timestamps();
         });
     }

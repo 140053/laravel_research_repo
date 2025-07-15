@@ -36,10 +36,11 @@
             </div>
 
             {{-- ✅ Add New Button --}}
-            <div>
-                <a href="{{ route('admin.research.create') }}" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+            <div class="">
+                <a href="{{ route('admin.research.create') }}" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 m-5 ">
                     + Add New Research
                 </a>
+                <a href="{{ route('admin.research.import.index') }}" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Import CSV</a>
             </div>
 
             {{-- ✅ Table with Card and Actions --}}
