@@ -13,7 +13,8 @@
                 </div>
             @endif
 
-            <form action="{{ route('admin.research.import.process') }}" method="POST" enctype="multipart/form-data">
+            {{-- <form action="{{ route('admin.research.import.process') }}" method="POST" enctype="multipart/form-data"> --}}
+            <form action="{{ route('admin.research.import.preview') }}" method="POST" enctype="multipart/form-data">
 
                 @csrf
                 <h1>
@@ -29,9 +30,15 @@
                     <input type="file" name="csv_file" required class="w-full p-2 border rounded" accept=".csv,.xlsx">
                 </div>
 
-                <button class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
-                    Import
-                </button>
+                <div class="flex justify-end gap-4">
+                    <button type="reset" class="bg-gray-300 text-gray-800 px-4 py-2 rounded hover:bg-gray-400 transition">
+                        Reset
+                    </button>
+            
+                    <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">
+                        Preview
+                    </button>
+                </div>
             </form>
         </div>
     </div>

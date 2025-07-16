@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Storage;
 use App\Imports\ResearchPaperImport;
 use Maatwebsite\Excel\Facades\Excel;
 
+use Illuminate\Support\Collection;
+
 
 class ResearchPaperController extends Controller
 {
@@ -24,13 +26,41 @@ class ResearchPaperController extends Controller
      */
     public function handleImport(Request $request)
     {
+       // $request->validate([
+        //    'csv_file' => 'required|mimes:csv,txt,xlsx|max:2048',
+       // ]);
+
+        $filePath = $request->input('file');
+
+        if (!Storage::exists($filePath)) {
+            return redirect()->back()->with('error', 'File not found.');
+        }
+
+        //Excel::import(new ResearchPaperImport, $request->file('csv_file'));
+        Excel::import(new ResearchPaperImport, Storage::path($filePath));
+
+        return redirect()->route('admin.research.index')->with('success', 'Research papers imported successfully.');
+    }
+
+    /**
+     * Preview the import data from a CSV file.
+     */
+
+    public function previewImport(Request $request)
+    {
         $request->validate([
             'csv_file' => 'required|mimes:csv,txt,xlsx|max:2048',
         ]);
 
-        Excel::import(new ResearchPaperImport, $request->file('csv_file'));
+        $path = $request->file('csv_file')->store('temp');
 
-        return redirect()->route('admin.research.index')->with('success', 'Research papers imported successfully.');
+        // Use Laravel Excel to read the file into collection
+        $collection = Excel::toCollection(new ResearchPaperImport, $request->file('csv_file'))->first();
+
+        return view('admin.research.import.preview', [
+            'rows' => $collection,
+            'file' => $path, // Save path for later confirmation
+        ]);
     }
 
 
@@ -41,12 +71,19 @@ class ResearchPaperController extends Controller
     {
         $query = ResearchPaper::query();
 
-        if ($request->filled('year')) {
-            $query->where('year', $request->year);
-        }
+        if( $request->filled('search')) {
+            $search = $request->search;
+            $query->where(function($q) use ($search) {
+                $q->where('title', 'like', '%' . $search . '%')
+                  ->orWhere('authors', 'like', '%' . $search . '%')
+                  ->orWhere('editors', 'like', '%' . $search . '%')
+                  ->orWhere('abstract', 'like', '%' . $search . '%')
+                  ->orWhere('year', 'like', '%' . $search . '%')
+                  ->orWhereHas('tags', function($q) use ($search) {
+                        $q->where('name', 'like', '%' . $search . '%');
+                    });
 
-        if ($request->filled('department')) {
-            $query->where('department', 'like', '%' . $request->department . '%');
+            });
         }
 
         $papers = $query->with('tags')->paginate(10);

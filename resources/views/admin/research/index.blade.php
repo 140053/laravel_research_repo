@@ -15,25 +15,8 @@
                 </div>
             @endif
 
-            {{-- ✅ Filter Form --}}
-            <div class="bg-white dark:bg-gray-800 p-4 rounded shadow">
-                <form method="GET" action="{{ route('admin.research.index') }}" class="flex flex-wrap gap-4 items-end">
-                    <div>
-                        <label class="block text-sm font-medium">Year</label>
-                        <input type="number" name="year" value="{{ request('year') }}" class="border rounded px-3 py-2 w-32">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium">Department</label>
-                        <input type="text" name="department" value="{{ request('department') }}" class="border rounded px-3 py-2 w-64">
-                    </div>
-                    <div>
-                        <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
-                            Filter
-                        </button>
-                        <a href="{{ route('admin.research.index') }}" class="ml-2 text-gray-500 underline">Reset</a>
-                    </div>
-                </form>
-            </div>
+          
+            <x-filter-form link="{{ route('admin.research.index') }}" />
 
             {{-- ✅ Add New Button --}}
             <div class="">
@@ -44,44 +27,80 @@
             </div>
 
             {{-- ✅ Table with Card and Actions --}}
-            <div class="bg-white dark:bg-gray-800 rounded shadow overflow-x-auto">
-                <table class="w-full text-left border-collapse">
-                    <thead>
-                        <tr class="bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200">
-                            <th class="p-4 text-sm font-semibold">Research Details</th>
-                            <th class="p-4 text-sm font-semibold text-center">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @forelse ($papers as $paper)
-                            <tr class="border-b dark:border-gray-700">
-                                <td class="p-4 align-top w-full">
-                                    <x-research-card :paper="$paper" />
-                                </td>
-                                <td class="p-4 align-center text-center whitespace-nowrap  ">
-                                    <div class="bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-700 p-4 rounded mb-4 shadow">
-                                        <a href="{{ route('admin.research.show', $paper->id) }}" class="text-blue-600 hover:underline block mb-1">View</a>
-                                        <a href="{{ route('admin.research.edit', $paper->id) }}" class="text-yellow-600 hover:underline block mb-1">Edit</a>
-                                        <form action="{{ route('admin.research.destroy', $paper->id) }}" method="POST" onsubmit="return confirm('Delete this research paper?')" class="inline">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="text-red-600 hover:underline block">Delete</button>
-                                        </form>
+            {{-- ✅ Table with Card and Actions --}}
+<div class="bg-white dark:bg-gray-800 rounded shadow overflow-x-auto">
+    <table class="w-full text-left border-collapse">
+        <thead>
+            <tr class="bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200">
+                <th class="p-4 text-sm font-semibold">Research Details</th>
+                <th class="p-4 text-sm font-semibold text-center">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @forelse ($papers as $paper)
+                <tr class="border-b dark:border-gray-700">
+                    {{-- ✅ Research Card Column --}}
+                    <td class="p-4 align-top w-full">
+                        <x-research-card :paper="$paper" />
+                    </td>
 
-                                    </div>
-                                    
-                                </td>
-                            </tr>
-                        @empty
-                            <tr>
-                                <td colspan="2" class="text-center text-gray-500 py-6">
-                                    No research papers found.
-                                </td>
-                            </tr>
-                        @endforelse
-                    </tbody>
-                </table>
-            </div>
+                    {{-- ✅ Actions Column --}}
+                    <td class="p-4 align-top text-center w-[220px]">
+                        <div class="flex flex-col gap-2 items-center justify-center">
+                    
+                            {{-- View --}}
+                            <a href="{{ route('admin.research.show', $paper->id) }} "
+                               class="hidden inline-flex items-center gap-2 px-3 py-1.5 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition text-sm w-full justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                                     stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 12H9m12 0c0 4.418-4.03 8-9 8S3 16.418 3 12s4.03-8 9-8 9 3.582 9 8z" />
+                                </svg>
+                                View
+                            </a>
+                    
+                            {{-- Edit --}}
+                            <a href="{{ route('admin.research.edit', $paper->id) }}"
+                               class="inline-flex items-center gap-2 px-3 py-1.5 bg-yellow-500 text-white rounded-md hover:bg-yellow-600 transition text-sm w-full justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                                     stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                          d="M11 5h2m2 0h.01M12 7v14m0 0H5.4A1.4 1.4 0 014 19.6V7.4A1.4 1.4 0 015.4 6H12" />
+                                </svg>
+                                Edit
+                            </a>
+                    
+                            {{-- Delete --}}
+                            <form action="{{ route('admin.research.destroy', $paper->id) }}"
+                                  method="POST"
+                                  onsubmit="return confirm('Delete this research paper?')"
+                                  class="w-full">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit"
+                                        class="inline-flex items-center gap-2 px-3 py-1.5 bg-red-600 text-white rounded-md hover:bg-red-700 transition text-sm w-full justify-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                                         stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                              d="M6 18L18 6M6 6l12 12" />
+                                    </svg>
+                                    Delete
+                                </button>
+                            </form>
+                        </div>
+                    </td>
+                    
+                </tr>
+            @empty
+                <tr>
+                    <td colspan="2" class="text-center text-gray-500 py-6">
+                        No research papers found.
+                    </td>
+                </tr>
+            @endforelse
+        </tbody>
+    </table>
+</div>
+
 
             {{-- ✅ Pagination --}}
             <div class="mt-6">

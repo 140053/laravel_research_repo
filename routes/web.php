@@ -27,6 +27,9 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
 
     // Import Route
     Route::get('research/import', [ResearchPaperController::class, 'showImportForm'])->name('research.import.index');
+    
+    Route::post('research/import/preview', [ResearchPaperController::class, 'previewImport'])->name('research.import.preview');
+
     Route::post('research/import', [ResearchPaperController::class, 'handleImport'])->name('research.import.process');
 
 
