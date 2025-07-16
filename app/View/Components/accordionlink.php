@@ -28,6 +28,6 @@ class accordion extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.accordion');
+        return view('components.accordionlink');
     }
 }
