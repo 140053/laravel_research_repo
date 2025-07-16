@@ -11,35 +11,39 @@
            
 
             {{-- ✅ Filter Form --}}
-            <div class="bg-white dark:bg-gray-800 p-4 rounded-md  shadow-md">
-                <h3 class="text-lg font-semibold mb-4">Filter Research Papers</h3>
-                <form method="GET" action="{{ route('dashboard.research.index') }}" class="flex flex-wrap gap-4 items-end justify-center">
-                    <div>
-                        <label class="block text-sm font-medium">Keyword</label>
-                        <input type="text" name="search" value="{{ request('search') }}" class="border rounded px-3 py-2 lg:w-[550px] sm:w-3/4 md:w-auto ">
+            <div class="bg-white dark:bg-gray-800 p-4 rounded-md shadow-md">
+                <h3 class="text-lg font-semibold mb-4 text-center md:text-left">Filter Research Papers</h3>
+
+                <form method="GET" action="{{ route('dashboard.research.index') }}"
+                    class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 w-full">
+                    
+                    {{-- Input --}}
+                    <div class="flex-1">
+                        <label class="block text-sm font-medium mb-1 text-gray-700 dark:text-gray-300">Keyword</label>
+                        <input type="text" name="search" value="{{ request('search') }}"
+                            class="border rounded px-3 py-2 w-full focus:ring-2 focus:ring-blue-500 focus:outline-none">
                     </div>
-                    <div>
-                        <label class="block text-sm font-medium">Year</label>
-                        <input type="number" name="year" value="{{ request('year') }}" class="border rounded px-3 py-2 w-32">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium">Department</label>
-                        <input type="text" name="department" value="{{ request('department') }}" class="border rounded px-3 py-2 w-64">
-                    </div>
-                    <div>
-                        <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+
+                    {{-- Buttons --}}
+                    <div class="flex flex-col md:flex-row items-center gap-2 md:gap-3">
+                        <button type="submit"
+                                class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 w-full md:w-auto">
                             Filter
                         </button>
-                        <a href="{{ route('dashboard.research.index') }}" class="ml-2 text-gray-500 underline">Reset</a>
+                        <a href="{{ route('dashboard.research.index') }}"
+                        class="text-gray-600 dark:text-gray-300 underline text-sm w-full text-center md:w-auto">
+                            Reset
+                        </a>
                     </div>
                 </form>
             </div>
 
+
             
 
             {{-- ✅ Table with Card and Actions --}}
-            <div class="bg-white dark:bg-gray-800 rounded shadow-md overflow-x-auto">
-                <table class="w-full text-left border-collapse">
+            <div class="bg-white dark:bg-gray-800 rounded border shadow-md overflow-x-auto">
+                <table class="w-full text-left border-collapse ">
                     <thead>
                         <tr class="bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200">
                             <th class="p-4 text-sm font-semibold">Research Details</th>

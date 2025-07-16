@@ -3,7 +3,7 @@
     <canvas id="{{ $id }}" class="cursor-pointer border shadow rounded w-full h-auto" @click="open = true"></canvas>
 
     {{-- Modal --}}
-    <div x-show="open" x-transition class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75">
+    <div x-show="opens" x-transition class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75">
         <div class="relative bg-white rounded shadow-lg max-w-5xl w-full h-[90vh] overflow-hidden">
             {{-- Close Button --}}
             <button @click="open = false"
@@ -11,8 +11,9 @@
                 ✕
             </button>
 
-            {{-- PDF Iframe --}}
+            {{-- PDF Iframe 
             <iframe src="{{ $src }}" class="w-full h-full border-none"></iframe>
+            --}}
         </div>
     </div>
 </div>

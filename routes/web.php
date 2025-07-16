@@ -13,51 +13,50 @@ Route::get('/', [HomeController::class, 'index'])
     ->name('home.index');
 
 
-Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
-    Route::get('research/import', [ResearchPaperController::class, 'showImportForm'])->name('research.import.index');
-    Route::post('research/import', [ResearchPaperController::class, 'handleImport'])->name('research.import.process');
-});
+
+
+
+// ----------- ADMIN ROUTES ---------------
 
 Route::get('/admin', [AdminController::class, 'index'])
     ->middleware(['auth', 'role:admin'])
     ->name('admin.index');
+    
+Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
 
 
+    // Import Route
+    Route::get('research/import', [ResearchPaperController::class, 'showImportForm'])->name('research.import.index');
+    Route::post('research/import', [ResearchPaperController::class, 'handleImport'])->name('research.import.process');
+
+
+    // Resource routes for research Add View delete update
+    Route::resource('research', ResearchPaperController::class);   
+});
+
+
+
+
+// ----------- DASHBOARD ROUTES ---------------
 Route::get('/dashboard', [ DashboardController::class, 'index'])
     ->middleware(['auth'])
     ->name('dashboard');
 
 Route::middleware(['auth', 'role:user'])->prefix('dashboard')->name('dashboard.')->group(function () {
-    
-
     // Resource routes for research papers
     Route::resource('research', DashboardController::class);
 
-    
 });
 
 
 
 
-Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
-
-    //admin route
-    //Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
-
-    // Resource routes for research
-    Route::resource('research', ResearchPaperController::class);   
-        
-    // Import routes
-    //Route::get('research/import', [ResearchPaperController::class, 'showImportForm'])->name('research.import.index');
-    //Route::post('research/import', [ResearchPaperController::class, 'handleImport'])->name('research.import.process');
-    
-});
 
 
 
-//Route::get('/admin/research/import', [ResearchPaperController::class, 'showImportForm'])
-//    ->middleware(['auth'])
-//    ->name('import.index');
+
+
+ 
 
 
     
@@ -66,7 +65,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
 
 
     
-
+// ----------- PROFILE ROUTES ---------------
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

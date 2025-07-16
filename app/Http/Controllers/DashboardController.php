@@ -15,26 +15,27 @@ class DashboardController extends Controller
     {
         $query = ResearchPaper::query();
 
-        if ($request->filled('year')) {
-            $query->where('year', $request->year);
-        }
 
-        if ($request->filled('department')) {
-            $query->where('department', 'like', '%' . $request->department . '%');
-        }
+       
 
         if( $request->filled('search')) {
             $search = $request->search;
             $query->where(function($q) use ($search) {
                 $q->where('title', 'like', '%' . $search . '%')
                   ->orWhere('authors', 'like', '%' . $search . '%')
-                  ->orWhere('editors', 'like', '%' . $search . '%');
+                  ->orWhere('editors', 'like', '%' . $search . '%')
+                  ->orWhere('abstract', 'like', '%' . $search . '%')
+                  ->orWhere('year', 'like', '%' . $search . '%')
+                  ->orWhereHas('tags', function($q) use ($search) {
+                        $q->where('name', 'like', '%' . $search . '%');
+                    });
+
             });
         }
 
         $papers = $query->with('tags')->paginate(10);
 
-       // dd($papers);
+        //dd($papers);
 
         //return view('admin.research.index', compact('papers'));
         return view('dashboard.index', compact('papers'));
