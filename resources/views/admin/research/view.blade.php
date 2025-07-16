@@ -5,5 +5,11 @@
         </h2>
     </x-slot>
 
-    <x-research-paper-view :paper="$paper" />
+    {{--<x-research-paper-view :paper="$paper" /> --}}
+
+    <div>
+        
+        <x-pdf-flipbook :src="Storage::url($paper->pdf_path)" />
+
+    </div>
 </x-app-layout>

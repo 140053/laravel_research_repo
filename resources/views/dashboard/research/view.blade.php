@@ -6,4 +6,10 @@
     </x-slot>
 
     <x-research-paper-view :paper="$paper" />
+
+    
+
+
+    
+
 </x-app-layout>

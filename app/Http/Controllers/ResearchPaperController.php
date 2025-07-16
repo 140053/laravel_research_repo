@@ -125,7 +125,7 @@ class ResearchPaperController extends Controller
             'year' => 'required|integer',
             'department' => 'required|string',
             'external_link' => 'nullable|url',
-            'pdf' => 'nullable|file|mimes:pdf|max:20480',
+            'pdf' => 'nullable|file|mimes:pdf|max:150480',
             'tags' => 'nullable|string',
         ]);
         
@@ -178,7 +178,7 @@ class ResearchPaperController extends Controller
             'year' => 'required|integer',
             'department' => 'required|string',
             'external_link' => 'nullable|url',
-            'pdf' => 'nullable|file|mimes:pdf|max:20480',
+            'pdf' => 'nullable|file|mimes:pdf|max:150480',
             'tags' => 'nullable|string',
         ]);
         
