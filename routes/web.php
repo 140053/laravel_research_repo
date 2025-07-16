@@ -5,12 +5,12 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ResearchPaperController;
+use App\Http\Controllers\HomeController;
 
 
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [HomeController::class, 'index'])
+    ->name('home.index');
 
 
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
@@ -27,9 +27,22 @@ Route::get('/dashboard', [ DashboardController::class, 'index'])
     ->middleware(['auth'])
     ->name('dashboard');
 
+Route::middleware(['auth', 'role:user'])->prefix('dashboard')->name('dashboard.')->group(function () {
+    
+
+    // Resource routes for research papers
+    Route::resource('research', DashboardController::class);
+
+    
+});
+
+
 
 
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
+
+    //admin route
+    //Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     // Resource routes for research
     Route::resource('research', ResearchPaperController::class);   

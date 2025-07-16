@@ -6,7 +6,7 @@
     </x-slot>
 
     <div class="py-12">
-        <div class="max-w-3xl mx-auto sm:px-6 lg:px-8">
+        <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg p-6">
                 @if ($errors->any())
                     <div class="bg-red-100 text-red-600 p-4 rounded mb-4">
@@ -24,9 +24,15 @@
 
                     @include('admin.research.form', ['paper' => $paper])
 
-                    <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
-                        Update
-                    </button>
+                   
+                    <div class="grid grid-cols-2 gap-5">
+                        <button onclick="window.history.back()" class=" bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600 text-center w-full">
+                            Cancel
+                        </button>
+                         <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 w-full">
+                             Update
+                         </button>
+                    </div>
                 </form>
             </div>
         </div>
