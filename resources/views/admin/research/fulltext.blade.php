@@ -5,7 +5,8 @@
         </h2>
     </x-slot>
 
-     <x-research-paper-view :paper="$paper" /> 
+         
+     <x-pdf-viewer-turn src={{ Storage::url($paper->pdf_path)  }} />
 
     
 

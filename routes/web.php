@@ -35,6 +35,8 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
 
     // Resource routes for research Add View delete update
     Route::resource('research', ResearchPaperController::class);   
+
+    Route::get('research/{id}/fulltext', [ResearchPaperController::class, 'fulltext'])->name('research.fulltext.index');
 });
 
 
@@ -48,6 +50,8 @@ Route::get('/dashboard', [ DashboardController::class, 'index'])
 Route::middleware(['auth', 'role:user'])->prefix('dashboard')->name('dashboard.')->group(function () {
     // Resource routes for research papers
     Route::resource('research', DashboardController::class);
+
+    Route::get('research/{id}/fulltext', [DashboardController::class, 'fulltext'])->name('research.fulltext.index');
 
 });
 

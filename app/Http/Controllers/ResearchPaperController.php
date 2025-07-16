@@ -100,6 +100,13 @@ class ResearchPaperController extends Controller
         return view('admin.research.view', compact('paper'));
     }
 
+
+    public function fulltext(string $id)
+    {
+        $paper = ResearchPaper::findOrFail($id);
+        return view('admin.research.fulltext.index', compact('paper'));
+    }
+
     /**
      * Show the form for creating a new resource.
      */

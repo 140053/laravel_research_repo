@@ -1,8 +1,8 @@
 <div class="bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-700 p-4 rounded mb-4 shadow">
     <div class="flex flex-wrap items-center gap-2 text-xs mb-2">
-        <span class="bg-green-200 text-green-800 px-2 py-0.5 rounded">Publisher: {{ $paper->publisher }}</span>
+        <span class="bg-green-200 text-green-800 px-2 py-0.5 rounded dark:bg-green-800 dark:text-green-200">Publisher: {{ $paper->publisher }}</span>
         <span class="bg-blue-200 text-blue-800 px-2 py-0.5 rounded hidden">Date Uploaded: {{ $paper->created_at->format('F j, Y') }}</span>
-        <span class="bg-gray-300 text-gray-800 px-2 py-0.5 rounded">Copyright: {{ $paper->year }}</span>
+        <span class="bg-gray-300 text-gray-800 px-2 py-0.5 rounded dark:bg-gray-800 dark:text-gray-300">Copyright: {{ $paper->year }}</span>
     </div>
 
    
@@ -29,23 +29,7 @@
         
     </div>
 
-   
-    
-    <div x-data="{ open: false }" class="border rounded shadow mb-4">
-        <button
-            @click="open = !open"
-            class="flex items-center justify-between w-full px-4 py-3 text-left  text-gray-700 bg-gray-100 hover:bg-gray-200"
-        >
-            <span>📂 Citation</span>
-            <svg :class="{'rotate-180': open}" class="w-4 h-4 transform transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-            </svg>
-        </button>
-    
-        <div x-show="open" x-transition class="px-4 py-3 text-gray-700 bg-white font-thin italic">
-            {{$paper->citation}}
-        </div>
-    </div>
-    
-  
+
+    <x-accordion-basic label="Citation" content="{{ $paper->citation }}" />
+
 </div>

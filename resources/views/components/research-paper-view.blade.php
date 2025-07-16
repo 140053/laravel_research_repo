@@ -14,27 +14,27 @@
             <div class=" p-2">
                 <div class="flex flex-row justify-between ">
                     <div>
-                        <x-detail label="Title" lclass="text-3xl sm:text-md" :value="$paper->title" />
-                        <x-detail label="Authors" lclass="text-2xl sm:text-md" :value="$paper->authors" />
+                        <x-detail label="Title" lclass="text-3xl sm:text-md dark:text-gray-300" :value="$paper->title" />
+                        <x-detail label="Authors" lclass="text-2xl sm:text-md dark:text-gray-300" :value="$paper->authors" />
 
                         @if ($paper->editors)
-                            <x-detail label="Editors" :value="$paper->editors" />
+                            <x-detail label="Editors" lclass="dark:text-gray-300" :value="$paper->editors" />
                         @endif
 
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-5 ">
-                            <x-detail label="Material Type" :value="$paper->tm" />
+                            <x-detail label="Material Type" lclass="dark:text-gray-300" :value="$paper->tm" />
 
-                            <x-detail label="Type" :value="$paper->type" />
+                            <x-detail label="Type" lclass="dark:text-gray-300" :value="$paper->type" />
 
                             @if ($paper->publisher)
-                                <x-detail label="Publisher" :value="$paper->publisher" />
+                                <x-detail label="Publisher" lclass="dark:text-gray-300" :value="$paper->publisher" />
                             @endif
 
                             @if ($paper->isbn)
-                                <x-detail label="ISBN" :value="$paper->isbn" />
+                                <x-detail label="ISBN" lclass="dark:text-gray-300" :value="$paper->isbn" />
                             @endif
 
-                            <x-detail label="Year" :value="$paper->year" />
+                            <x-detail label="Year" lclass="dark:text-gray-300" :value="$paper->year" />
 
                         </div>
                     </div>
@@ -44,7 +44,7 @@
                     @if ($paper->pdf_path)
                         <div class=" w-[350px]  max-w-sm mx-auto flex flex-col justify-center">
                             <x-pdf-thumbnail :src="Storage::url($paper->pdf_path)" id="thumbnail-{{ $paper->id }}" />
-                            <a href="{{Storage::url($paper->pdf_path)}}" class="bg-green-600 text-white text-center px-4 py-2 rounded hover:bg-green-700 w-full">View Full text</a>
+                            <a href="{{ auth()->user()->hasRole('admin') ? route('admin.research.fulltext.index', $paper->id) : route('dashboard.research.fulltext.index', $paper->id) }}" class="bg-green-600 text-white text-center px-4 py-2 rounded hover:bg-green-700 w-full">View Full text</a>
                         </div>
                        
                     @endif
@@ -57,7 +57,7 @@
             </div>
 
             @if ($paper->keyword)
-                <x-detail label="Keywords" lclass="intalic" :value="$paper->keyword" />
+                <x-detail label="Keywords" lclass="italic dark:text-gray-300" :value="$paper->keyword" />
             @endif
 
             <div>
@@ -84,26 +84,11 @@
             </div>
 
             @if ($paper->citation)
-                <div x-data="{ open: false }" class="border rounded shadow ">
-                    <button @click="open = !open"
-                        class="flex items-center justify-between w-full px-4 py-3 text-left  text-gray-700 bg-gray-100 hover:bg-gray-200">
-                        <span>📂 Citation</span>
-                        <svg :class="{ 'rotate-180': open }" class="w-4 h-4 transform transition-transform" fill="none"
-                            viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                        </svg>
-                    </button>
-
-                    <div x-show="open" x-transition
-                        class="text-gray-800 dark:text-gray-300 whitespace-pre-line italic font-thin text-sm p-3">
-                        {{ $paper->citation }}
-                    </div>
-                </div>
+                <x-accordion-basic label="Citation" content="{{ $paper->citation }}" />
             @endif
 
             @if ($paper->external_link)
-                <x-accordionlink label="External Link" content='Click here to view '
-                    link="{{ $paper->external_link }}" />
+                <x-accordion-with-link label="External Link" content='Click here to view ' link="{{ $paper->external_link }}" />
             @endif
 
             @if ($paper->pdf_path)

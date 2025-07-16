@@ -23,11 +23,12 @@
                             <tr class="border-t hover:bg-gray-50 dark:hover:bg-gray-700">
                                 @foreach($row as $columnKey => $cell)
                                     <td class="px-4 py-2 border text-wrap max-w-xs truncate" title="{{ $cell }}">
-                                        @if (strtolower($columnKey) === 'abstract')
-                                            {{ \Illuminate\Support\Str::limit($cell, 100) }}
+                                        @if (in_array(strtolower($columnKey), ['abstract', 'citation', 'publisher', 'author', 'title', 'keyword']))
+                                            {{ \Illuminate\Support\Str::limit($cell, 50) }}
                                         @else
                                             {{ $cell }}
                                         @endif
+
                                     </td>
                                 @endforeach
                             </tr>

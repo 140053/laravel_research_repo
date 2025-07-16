@@ -49,6 +49,12 @@ class DashboardController extends Controller
         //return new \App\View\Components\ResearchPaperView($paper);
     }
 
+     public function fulltext(string $id)
+    {
+        $paper = ResearchPaper::findOrFail($id);
+        return view('dashboard.research.fulltext.index', compact('paper'));
+    }
+
 
     
 }

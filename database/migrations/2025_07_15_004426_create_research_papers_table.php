@@ -27,6 +27,8 @@ return new class extends Migration
             $table->string('external_link')->nullable();
             $table->text('citation')->nullable();
             $table->text('keyword')->nullable()->after('citation');
+            $table->boolean('status')->default(false)->comment('Indicates if the research appears in the collection');
+            $table->boolean('restricted')->default(false)->comment('Indicates if the research paper is featured');
             $table->timestamps();
         });
     }
