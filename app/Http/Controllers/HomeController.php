@@ -15,8 +15,8 @@ class HomeController extends Controller
     public function index()
     {
         $tag = Tag::query()
-            ->where('status', true)
-            ->latest() // optional: orders by created_at
+            //->where('status', true)
+            //->latest() // optional: orders by created_at
             ->limit(12)
             ->get();
 
