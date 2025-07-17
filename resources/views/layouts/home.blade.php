@@ -26,24 +26,24 @@
       
           <!-- Desktop Menu -->
           <nav class="hidden md:flex space-x-4">
-            <a href="#" class="text-gray-700 hover:text-indigo-600">Home</a>
+            <a href="/" class="text-gray-700 hover:text-indigo-600">Home</a>
             <a href="#" class="text-gray-700 hover:text-indigo-600">Browse</a>
             <a href="#" class="text-gray-700 hover:text-indigo-600">Authors</a>
             <a href="#" class="text-gray-700 hover:text-indigo-600">Categories</a>
-            <a href="#" class="text-gray-700 hover:text-indigo-600">About</a>
-            <a href="#" class="text-gray-700 hover:text-indigo-600">Login</a>
+            <a href="/about" class="text-gray-700 hover:text-indigo-600">About</a>
+            <a href="/login" class="text-gray-700 hover:text-indigo-600">Login</a>
           </nav>
         </div>
       
         <!-- Mobile Menu -->
         <div id="mobile-menu" class="md:hidden px-4 pb-4 hidden">
           <nav class="flex flex-col space-y-2">
-            <a href="#" class="text-gray-700 hover:text-indigo-600">Home</a>
+            <a href="/" class="text-gray-700 hover:text-indigo-600">Home</a>
             <a href="#" class="text-gray-700 hover:text-indigo-600">Browse</a>
             <a href="#" class="text-gray-700 hover:text-indigo-600">Authors</a>
             <a href="#" class="text-gray-700 hover:text-indigo-600">Categories</a>
-            <a href="#" class="text-gray-700 hover:text-indigo-600">About</a>
-            <a href="#" class="text-gray-700 hover:text-indigo-600">Login</a>
+            <a href="/about" class="text-gray-700 hover:text-indigo-600">About</a>
+            <a href="/login" class="text-gray-700 hover:text-indigo-600">Login</a>
           </nav>
         </div>
       </header>
