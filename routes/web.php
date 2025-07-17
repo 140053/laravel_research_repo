@@ -12,6 +12,9 @@ use App\Http\Controllers\HomeController;
 Route::get('/', [HomeController::class, 'index'])
     ->name('home.index');
 
+Route::get('/about', [HomeController::class, 'about'])
+    ->name('about');
+
 
 
 
@@ -34,9 +37,18 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
 
 
     // Resource routes for research Add View delete update
-    Route::resource('research', ResearchPaperController::class);   
+    Route::resource('research', ResearchPaperController::class);
+    //Route::get('research', [ResearchPaperController::class, 'index'])->name('research.import')
 
+    Route::get('research/pending/index', [ResearchPaperController::class, 'pending'])->name('research.pending.index');
     Route::get('research/{id}/fulltext', [ResearchPaperController::class, 'fulltext'])->name('research.fulltext.index');
+
+    Route::put('research/{paper}/approve', [ResearchPaperController::class, 'approve'])->name('research.approve');
+    Route::put('research/mass-approve', [ResearchPaperController::class, 'massApprove'])->name('research.mass-approve');
+    Route::post('research/bulk-action', [ResearchPaperController::class, 'bulkAction'])->name('research.bulkAction');
+
+
+
 });
 
 
@@ -50,7 +62,7 @@ Route::get('/dashboard', [ DashboardController::class, 'index'])
 Route::middleware(['auth', 'role:user'])->prefix('dashboard')->name('dashboard.')->group(function () {
     // Resource routes for research papers
     Route::resource('research', DashboardController::class);
-
+    
     Route::get('research/{id}/fulltext', [DashboardController::class, 'fulltext'])->name('research.fulltext.index');
 
 });

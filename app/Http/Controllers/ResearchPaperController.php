@@ -39,7 +39,7 @@ class ResearchPaperController extends Controller
         //Excel::import(new ResearchPaperImport, $request->file('csv_file'));
         Excel::import(new ResearchPaperImport, Storage::path($filePath));
 
-        return redirect()->route('admin.research.index')->with('success', 'Research papers imported successfully.');
+        return redirect()->route('admin.research.index')->with('success', 'Research papers imported successfully. All are in the Pending pages.');
     }
 
     /**
@@ -69,7 +69,10 @@ class ResearchPaperController extends Controller
      */
     public function index(Request $request)
     {
-        $query = ResearchPaper::query();
+
+        
+        $query = ResearchPaper::query()
+                ->where('status', true);
 
         if( $request->filled('search')) {
             $search = $request->search;
@@ -90,6 +93,77 @@ class ResearchPaperController extends Controller
 
         return view('admin.research.index', compact('papers'));
     }
+
+    public function pending(Request $request){
+        $query = ResearchPaper::query()
+                ->where('status', false);
+
+        if( $request->filled('search')) {
+            $search = $request->search;
+            $query->where(function($q) use ($search) {
+                $q->where('title', 'like', '%' . $search . '%')
+                ->orWhere('authors', 'like', '%' . $search . '%')
+                ->orWhere('editors', 'like', '%' . $search . '%')
+                ->orWhere('abstract', 'like', '%' . $search . '%')
+                ->orWhere('year', 'like', '%' . $search . '%')
+                ->orWhereHas('tags', function($q) use ($search) {
+                        $q->where('name', 'like', '%' . $search . '%');
+                    });
+
+            });
+        }
+
+        $papers = $query->with('tags')->paginate(10);
+
+        return view('admin.research.pending.index', compact('papers'));
+    }
+
+    public function approve(ResearchPaper $paper)
+    {
+        $paper->status = true;
+        $paper->save();
+
+        return redirect()->back()->with('success', 'Research paper approved successfully.');
+    }
+
+    public function massApprove(Request $request)
+    {
+        $ids = $request->input('ids', []);
+        
+        if (empty($ids)) {
+            return redirect()->back()->with('error', 'No papers selected.');
+        }
+
+        ResearchPaper::whereIn('id', $ids)->update(['status' => true]);
+
+        return redirect()->back()->with('success', count($ids) . ' research paper(s) approved.');
+    }
+
+
+    public function bulkAction(Request $request)
+    {
+        $ids = $request->input('selected', []);
+        $action = $request->input('action');
+
+        if (empty($ids)) {
+            return back()->with('success', 'No items selected.');
+        }
+
+        switch ($action) {
+            case 'approve':
+                ResearchPaper::whereIn('id', $ids)->update(['status' => true]);
+                return back()->with('success', 'Selected papers approved.');
+            case 'reject':
+                ResearchPaper::whereIn('id', $ids)->update(['status' => false]);
+                return back()->with('success', 'Selected papers rejected.');
+            case 'delete':
+                ResearchPaper::whereIn('id', $ids)->delete();
+                return back()->with('success', 'Selected papers deleted.');
+            default:
+                return back()->with('success', 'No valid action selected.');
+        }
+    }
+
 
 
     // view the detail of the research paper

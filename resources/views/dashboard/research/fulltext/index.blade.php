@@ -4,8 +4,7 @@
             {{ $paper->title }} - Full Text View 
             <span class="text-sm text-gray-500 dark:text-gray-400">({{ $paper->type }})</span>
             <br>
-            <a href="{{ route('admin.research.show', $paper->id) }}" class="text-blue-500 hover:underline">Back to Details</a>
-            
+            <a href="{{ auth()->user()->hasRole('admin') ? route('admin.research.show', $paper->id) : route('dashboard.research.show', $paper->id ) }}" class="text-blue-500 hover:underline">Back to Details</a>
         </h2>
     </x-slot>
      
@@ -14,9 +13,5 @@
 
          <x-pdf-viewer-turn src="{{ Storage::url($paper->pdf_path) }}" :paper="$paper" />
     </div>
-
-
-    
-
 
 </x-app-layout>

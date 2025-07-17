@@ -13,10 +13,8 @@ class DashboardController extends Controller
 
     public function index(Request $request)
     {
-        $query = ResearchPaper::query();
-
-
-       
+        $query = ResearchPaper::query()
+                ->where('status', true);
 
         if( $request->filled('search')) {
             $search = $request->search;
