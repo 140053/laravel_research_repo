@@ -61,9 +61,9 @@
             @auth
                 {{-- This block runs ONLY if a user is logged in --}}
                 @if(auth()->user()->hasRole('admin'))
-                    <a href="{{ route('admin.index') }}" class="text-gray-700 hover:text-indigo-600 dark:text-white">Admin Dashboard</a>
+                    <a href="{{ route('admin.index') }}" class="text-gray-700 hover:text-indigo-600 dark:text-white">Dashboard</a>
                 @else
-                    <a href="{{ route('dashboard') }}" class="text-gray-700 hover:text-indigo-600 dark:text-white">User Dashboard</a>
+                    <a href="{{ route('dashboard') }}" class="text-gray-700 hover:text-indigo-600 dark:text-white">Dashboard</a>
                 @endif
             @endauth
 
@@ -85,9 +85,9 @@
            @auth
               {{-- This block runs ONLY if a user is logged in --}}
               @if(auth()->user()->hasRole('admin'))
-                  <a href="{{ route('admin.index') }}" class="text-gray-700 hover:text-indigo-600 dark:text-white">Admin Dashboard</a>
+                  <a href="{{ route('admin.index') }}" class="text-gray-700 hover:text-indigo-600 dark:text-white">Dashboard</a>
               @else
-                  <a href="{{ route('dashboard') }}" class="text-gray-700 hover:text-indigo-600 dark:text-white">User Dashboard</a>
+                  <a href="{{ route('dashboard') }}" class="text-gray-700 hover:text-indigo-600 dark:text-white">Dashboard</a>
               @endif
           @endauth
 
