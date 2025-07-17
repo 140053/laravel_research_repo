@@ -15,26 +15,42 @@
         </div>
     </section>
 
-    <!-- Latest Research -->
-<section class="py-12">
+
+  <section class="py-12">
     <div class="max-w-7xl mx-auto px-4">
       <h3 class="text-2xl font-semibold mb-6">Latest Research</h3>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <!-- Card -->
-        <div class="bg-white p-4 rounded shadow">
-          <h4 class="font-bold text-lg mb-2">AI in Education</h4>
-          <p class="text-sm text-gray-600">By Jane Doe • 2025</p>
-          <a href="#" class="text-indigo-600 text-sm mt-2 inline-block">View Details</a>
-        </div>
-        <!-- More cards -->
-      </div>
+      @foreach ($papers as $paper)
+     
+     
+          <!-- Card -->
+          <div class="bg-white p-4 rounded shadow">
+            <h4 class="font-bold text-lg mb-2">{{ $paper->title }}</h4>
+            <p class="text-sm text-gray-600">{{ $paper->authors }} • {{ $paper->year }} </p>
+            @auth
+                @if(auth()->user()->hasRole('admin'))
+                    <a href="{{ route('admin.research.show', $paper->id) }}" class="text-indigo-600 text-sm mt-2 inline-block">
+                        View Details
+                    </a>
+                @else
+                    <a href="{{ route('dashboard.research.index') }}" class="text-indigo-600 text-sm mt-2 inline-block">
+                        View Details
+                    </a>
+                @endif
+            @else
+                <a href="{{ route('login') }}" class="text-indigo-600 text-sm mt-2 inline-block">
+                    Login to View Details
+                </a>
+            @endauth
+        
+          </div>
+          <!-- More cards -->
+        
+          
+      @endforeach
     </div>
+  </div>
   </section>
-
-  @foreach ($papers as $paper)
-  <p>{{ $paper }}</p>
-      
-  @endforeach
 
 
   <!-- Categories -->
@@ -42,10 +58,14 @@
     <div class="max-w-7xl mx-auto px-4">
       <h3 class="text-2xl font-semibold mb-6">Research Categories</h3>
       <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <span class="bg-white shadow px-4 py-2 rounded text-center">Science</span>
-        <span class="bg-white shadow px-4 py-2 rounded text-center">IT/CS</span>
-        <span class="bg-white shadow px-4 py-2 rounded text-center">Business</span>
-        <span class="bg-white shadow px-4 py-2 rounded text-center">Education</span>
+
+        @foreach($tag as $t)
+          <a href="/" class="bg-white shadow px-4 py-2 rounded text-center" >
+            <span >{{ $t->name }}</span>
+          </a>
+        @endforeach
+
+       
       </div>
     </div>
   </section>
