@@ -15,6 +15,9 @@ Route::get('/', [HomeController::class, 'index'])
 Route::get('/about', [HomeController::class, 'about'])
     ->name('about');
 
+Route::get('/authors', [HomeController::class, 'authorsIndex'])
+    ->name('authors');
+
 
 
 

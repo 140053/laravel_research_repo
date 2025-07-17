@@ -49,7 +49,7 @@ class ResearchPaperController extends Controller
     public function previewImport(Request $request)
     {
         $request->validate([
-            'csv_file' => 'required|mimes:csv,txt,xlsx|max:2048',
+            'csv_file' => 'required|mimes:csv,txt,xlsx|max:3048',
         ]);
 
         $path = $request->file('csv_file')->store('temp');
@@ -74,8 +74,11 @@ class ResearchPaperController extends Controller
         $query = ResearchPaper::query()
                 ->where('status', true);
 
+        $keyword = "";
+
         if( $request->filled('search')) {
             $search = $request->search;
+            $keyword = $search;
             $query->where(function($q) use ($search) {
                 $q->where('title', 'like', '%' . $search . '%')
                   ->orWhere('authors', 'like', '%' . $search . '%')
@@ -89,9 +92,24 @@ class ResearchPaperController extends Controller
             });
         }
 
+        if($request->filled('category')){
+             $search = $request->category;
+            $keyword = $search;
+             $category = $request->category;
+            // Query where the research paper HAS a related tag
+            // AND that tag's 'name' column matches the category value
+            $query->whereHas('tags', function($q) use ($category) {
+                $q->where('name', $category); // Use exact match for category
+                // If you want partial match for category:
+                // $q->where('name', 'like', '%' . $category . '%');
+            });
+        }
+
+        
+
         $papers = $query->with('tags')->paginate(10);
 
-        return view('admin.research.index', compact('papers'));
+        return view('admin.research.index', compact('papers', 'keyword'));
     }
 
     public function pending(Request $request){

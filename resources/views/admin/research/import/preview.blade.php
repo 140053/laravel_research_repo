@@ -37,7 +37,7 @@
                 </table>
             </div>
 
-            <form action="{{ route('admin.research.import.process') }}" method="POST">
+            <form action="{{ route('admin.research.import.process') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <input type="hidden" name="file" value="{{ $file }}">
 

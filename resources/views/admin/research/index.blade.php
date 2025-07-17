@@ -15,6 +15,13 @@
                 </div>
             @endif
 
+
+            @if($keyword)
+                <div class="bg-green-100 text-green-800 p-4 rounded ">
+                    Filter by : <span class=" font-extrabold">{{ $keyword }} !</span>
+                </div>
+            @endif
+
           
             <x-filter-form link="{{ route('admin.research.index') }}" />
 

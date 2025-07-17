@@ -22,7 +22,7 @@
         <textarea name="abstract" rows="4" required class="w-full p-2 border rounded  h-80 dark:bg-gray-700 dark:text-gray-300">{{ old('abstract', $paper->abstract ?? '') }}</textarea>
     </div>
 
-    <div class="grid grid-cols-4  gap-3">
+    <div class="grid grid-cols-3  gap-3">
         {{-- TM --}}
         <div>
             <label class="block font-semibold dark:text-gray-300">Material Type</label>
@@ -32,15 +32,7 @@
             </select>
         </div>
 
-        {{-- Type --}}
-        <div>
-            <label class="block font-semibold dark:text-gray-300">Type</label>
-            <select name="type" class="w-full p-2 border rounded dark:bg-gray-700 dark:text-gray-300" required>
-                @foreach(['Journal', 'Conference', 'Book', 'Thesis', 'Report'] as $type)
-                    <option class="dark:bg-gray-700 dark:text-gray-300" value="{{ $type }}" {{ old('type', $paper->type ?? '') == $type ? 'selected' : '' }}>{{ $type }}</option>
-                @endforeach
-            </select>
-        </div>
+       
         {{-- ISBN --}}
         <div>
             <label class="block font-semibold dark:text-gray-300">ISBN (optional)</label>
@@ -102,9 +94,8 @@
 
     </div>
 
-   
 
-    
+    <div class="grid grid-cols-2 gap-3">
     <div>
         <label class="block font-semibold dark:text-gray-300">PDF File (optional)</label>
         <input type="file" name="pdf" class="w-full p-2 border rounded dark:bg-gray-700 dark:text-gray-300">
@@ -113,6 +104,18 @@
                 <a href="{{ Storage::url($paper->pdf_path) }}" class="text-blue-600 underline dark:text-blue-400" target="_blank">View</a>
             </p>
         @endif
+    </div>
+
+     {{-- Type --}}
+        <div>
+            <label class="block font-semibold dark:text-gray-300">Type</label>
+            <select name="type" class="w-full p-2 border rounded dark:bg-gray-700 dark:text-gray-300" required>
+                @foreach(['Journal', 'Conference', 'Book', 'Thesis', 'Report'] as $type)
+                    <option class="dark:bg-gray-700 dark:text-gray-300" value="{{ $type }}" {{ old('type', $paper->type ?? '') == $type ? 'selected' : '' }}>{{ $type }}</option>
+                @endforeach
+            </select>
+        </div>
+
     </div>
 
 </div>

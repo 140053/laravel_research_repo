@@ -1,16 +1,31 @@
 <?php
 
+
 namespace App\Imports;
 
 use App\Models\ResearchPaper;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithValidation;
+use Illuminate\Support\Str; 
 
 class ResearchPaperImport implements ToModel, WithHeadingRow, WithValidation
 {
     public function model(array $row)
     {
+        // Get the type value from the row, convert to uppercase and trim whitespace
+        $rawType = strtoupper(trim($row['type'] ?? ''));
+
+        // Map the single-letter abbreviation to the full enum value
+        $formattedType = match ($rawType) {
+            'J' => 'Journal',
+            'C' => 'Conference',
+            'B' => 'Book',
+            'T' => 'Thesis',
+            'R' => 'Report',
+            default => 'J', // Default to 'Journal' if the abbreviation is not recognized
+        };
+
         //dd($row);
         return new ResearchPaper([
             'title'         => $row['title'] ?? 'Untitled',
@@ -20,7 +35,7 @@ class ResearchPaperImport implements ToModel, WithHeadingRow, WithValidation
                 'P', 'NP' => strtoupper(trim($row['tm'])),
                 'P NP', 'NP P' => 'P', // Or 'NP' based on your needs
                 default => 'P', // fallback value
-            },
+            },          
             'year'          => is_numeric($row['year'] ?? null) ? (int) $row['year'] : null,
             'publisher'     => $row['publisher'] ?? null,
             'citation'      => $row['citation'] ?? null,
@@ -29,6 +44,7 @@ class ResearchPaperImport implements ToModel, WithHeadingRow, WithValidation
             'external_link' => $row['links'] ?? null,
             'isbn'          => $row['isbn'] ?? null,
             'department'    => 'Uncategorized',
+            'type'          => $formattedType,
         ]);
     }
 
@@ -41,3 +57,4 @@ class ResearchPaperImport implements ToModel, WithHeadingRow, WithValidation
         ];
     }
 }
+
