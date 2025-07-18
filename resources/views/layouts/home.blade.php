@@ -54,9 +54,9 @@
           <!-- Desktop Menu -->
           <nav class="hidden md:flex space-x-4 ">
             <a href="/" class="text-gray-700 hover:text-indigo-600 dark:text-white">Home</a>
-            <a href="#" class="text-gray-700 hover:text-indigo-600 dark:text-white">Browse</a>
+            <a href="/browse" class="text-gray-700 hover:text-indigo-600 dark:text-white">Browse</a>
             <a href="/authors" class="text-gray-700 hover:text-indigo-600 dark:text-white">Authors</a>
-            <a href="#" class="text-gray-700 hover:text-indigo-600 dark:text-white">Categories</a>
+            <a href="/categories" class="text-gray-700 hover:text-indigo-600 dark:text-white">Categories</a>
             <a href="/about" class="text-gray-700 hover:text-indigo-600 dark:text-white">About</a>
             @auth
                 {{-- This block runs ONLY if a user is logged in --}}
@@ -78,9 +78,9 @@
         <div id="mobile-menu" class="md:hidden px-4 pb-4 hidden">
           <nav class="flex flex-col space-y-2">
             <a href="/" class="text-gray-700 hover:text-indigo-600 dark:text-white">Home</a>
-            <a href="#" class="text-gray-700 hover:text-indigo-600 dark:text-white">Browse</a>
+            <a href="/browse" class="text-gray-700 hover:text-indigo-600 dark:text-white">Browse</a>
             <a href="/authors" class="text-gray-700 hover:text-indigo-600 dark:text-white">Authors</a>
-            <a href="#" class="text-gray-700 hover:text-indigo-600 dark:text-white">Categories</a>
+            <a href="/categories" class="text-gray-700 hover:text-indigo-600 dark:text-white">Categories</a>
             <a href="/about" class="text-gray-700 hover:text-indigo-600 dark:text-white">About</a>
            @auth
               {{-- This block runs ONLY if a user is logged in --}}

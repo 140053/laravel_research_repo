@@ -6,8 +6,9 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ResearchPaperController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ArticlesController;
 
-
+use App\Http\Controllers\AlbumController;
 
 Route::get('/', [HomeController::class, 'index'])
     ->name('home.index');
@@ -18,6 +19,11 @@ Route::get('/about', [HomeController::class, 'about'])
 Route::get('/authors', [HomeController::class, 'authorsIndex'])
     ->name('authors');
 
+Route::get('/browse', [HomeController::class, 'browse'])
+    ->name('browse');
+
+Route::get('/categories', [HomeController::class, 'categories'])
+    ->name('categories');
 
 
 
@@ -50,9 +56,32 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::put('research/mass-approve', [ResearchPaperController::class, 'massApprove'])->name('research.mass-approve');
     Route::post('research/bulk-action', [ResearchPaperController::class, 'bulkAction'])->name('research.bulkAction');
 
+    //Articles
+    Route::resource('articles', ArticlesController::class);
+    Route::delete('articles/images/{image}', [ArticlesController::class, 'deleteImage'])->name('articles.deleteImage');
 
+
+    //Gallery 
+    //Route::resource('albums', GalleryControllers::class);
+   //// Route::get('albums', [GalleryControllers::class, 'index'])->name('albums.index');
+   // Route::get('albums/create', [GalleryControllers::class, 'create'])->name('albums.create');
+   // Route::get('albums/store', [GalleryControllers::class, 'store'])->name('albums.store');
+   // Route::post('albums/store', [GalleryControllers::class, 'store'])->name('albums.store');
+    
+   // Route::get('/albums/{album}/edit', [GalleryControllers::class, 'edit'])->name('admin.albums.edit');
+
+    //Route::post('albums/edit', [GalleryControllers::class, 'edit'])->name('albums.edit');
+   // Route::post('albums/destroy', [GalleryControllers::class, 'destroy'])->name('albums.destroy');
+   // Route::post('albums/update', [GalleryControllers::class, 'update'])->name('albums.update');
+   
 
 });
+
+
+
+
+
+
 
 
 
@@ -95,3 +124,4 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+require __DIR__.'/user.php';

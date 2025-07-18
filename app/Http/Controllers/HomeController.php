@@ -32,6 +32,15 @@ class HomeController extends Controller
     public function about(){
         return view('about');
     }
+
+    public function categories(){
+        return view('categories');
+    }
+
+    public function browse(){
+        return view('browse');
+    }
+
     /*
     public function author(){
         $papers = ResearchPaper::query()

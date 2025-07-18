@@ -22,7 +22,9 @@ class ResearchPaperImport implements ToModel, WithHeadingRow, WithValidation
             'C' => 'Conference',
             'B' => 'Book',
             'T' => 'Thesis',
-            'R' => 'Report',
+            'D' => 'Dissertation',
+            'R' => 'Report',           
+            'A' => 'Article ',
             default => 'J', // Default to 'Journal' if the abbreviation is not recognized
         };
 

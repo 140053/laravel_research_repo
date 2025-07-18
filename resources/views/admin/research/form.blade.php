@@ -110,7 +110,7 @@
         <div>
             <label class="block font-semibold dark:text-gray-300">Type</label>
             <select name="type" class="w-full p-2 border rounded dark:bg-gray-700 dark:text-gray-300" required>
-                @foreach(['Journal', 'Conference', 'Book', 'Thesis', 'Report'] as $type)
+                @foreach(['Journal', 'Conference', 'Book', 'Thesis','Dissertation',  'Report','Article' ] as $type)
                     <option class="dark:bg-gray-700 dark:text-gray-300" value="{{ $type }}" {{ old('type', $paper->type ?? '') == $type ? 'selected' : '' }}>{{ $type }}</option>
                 @endforeach
             </select>

@@ -16,7 +16,7 @@
             <div>
                 <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg mt-6">
                     <div class="p-6 text-gray-900 dark:text-gray-100">
-                        <h3 class="text-lg font-semibold">Admin Actions</h3>
+                        <h3 class="text-lg font-semibold">Research Management</h3>
                         <ul class="mt-4 ">
                             <li class="p-4 shadow mb-2">
                                 <a href="{{ route('admin.research.index') }}" class="text-blue-600 hover:underline flex justify-between">
@@ -33,6 +33,42 @@
                                                       
                             
 
+                        </ul>
+                    </div>
+
+                    <div class="p-6 text-gray-900 dark:text-gray-100 hidden">
+                        <h3 class="text-lg font-semibold">Article Management</h3>
+                        <ul class="mt-4 ">
+                            <li class="p-4 shadow mb-2">
+                                <a href="{{ route('admin.articles.index') }}" class="text-blue-600 hover:underline flex justify-between">
+                                    Manage Article
+                                    <span class=" ml-3 inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-green-600/20 ring-inset">0</span>
+                                </a>
+                            </li> 
+                        </ul>
+                    </div>
+
+                    <div class="p-6 text-gray-900 dark:text-gray-100 ">
+                        <h3 class="text-lg font-semibold">Gallery Management</h3>
+                        <ul class="mt-4 ">
+                            <li class="p-4 shadow mb-2">
+                                <a href="" class="text-blue-600 hover:underline flex justify-between">
+                                    Manage Album
+                                    <span class=" ml-3 inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-green-600/20 ring-inset">0</span>
+                                </a>
+                            </li> 
+                        </ul>
+                    </div>
+
+                    <div class="p-6 text-gray-900 dark:text-gray-100">
+                        <h3 class="text-lg font-semibold">User Management</h3>
+                        <ul class="mt-4 ">
+                            <li class="p-4 shadow mb-2">
+                                <a href="{{ route('admin.users.index') }}" class="text-blue-600 hover:underline flex justify-between">
+                                    Users
+                                    <span class=" ml-3 inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-green-600/20 ring-inset">{{ $users}}</span>
+                                </a>
+                            </li> 
                         </ul>
                     </div>
                 </div>
