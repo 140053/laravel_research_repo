@@ -8,7 +8,10 @@ use App\Http\Controllers\ResearchPaperController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ArticlesController;
 
+
+use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\AlbumController;
+
 
 Route::get('/', [HomeController::class, 'index'])
     ->name('home.index');
@@ -73,6 +76,19 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     //Route::post('albums/edit', [GalleryControllers::class, 'edit'])->name('albums.edit');
    // Route::post('albums/destroy', [GalleryControllers::class, 'destroy'])->name('albums.destroy');
    // Route::post('albums/update', [GalleryControllers::class, 'update'])->name('albums.update');
+   
+    Route::get('/gallery', [GalleryController::class, 'index'])->name('gallery.index');
+    Route::get('gallery/albums/{album}/images/create', [GalleryController::class, 'create'])->name('albums.images.create');
+    Route::get('gallery/albums/{album}/images/create', [GalleryController::class, 'create'])->name('gallery.albums.images.create');
+
+    Route::post('/gallery/albums/{album}/images', [GalleryController::class, 'store'])->name('albums.images.store');
+
+    //Route::post('/albums/{album}/images', [GalleryController::class, 'store'])->name('albums.images.store');
+
+
+    Route::get('gallery/albums/create', [AlbumController::class, 'create'])->name('gallery.albums.create');
+    Route::post('albums', [AlbumController::class, 'store'])->name('gallery.albums.store');
+
    
 
 });
