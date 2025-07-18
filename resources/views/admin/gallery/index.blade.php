@@ -23,6 +23,7 @@
                        
                         <div class="aspect-square overflow-hidden rounded-lg border">
                             <img src="{{ asset('storage/' . $image->image_path) }}" alt="" class="w-full h-full object-cover">
+                            <p class="mt-2 text-sm text-gray-700">{{ $image->caption }}</p>
                         </div>
                     @empty
                         <p class="col-span-full text-gray-400">No images in this album.</p>

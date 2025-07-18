@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Image;
 use App\Models\Albums;
+use Illuminate\Support\Facades\Storage;
 
 class GalleryController extends Controller
 {
@@ -24,13 +26,20 @@ class GalleryController extends Controller
     public function store(Request $request, Albums $album)
     {
         $request->validate([
-            'images.*' => 'required|image|max:5120', // max 5MB per image
+            'images.*' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'captions.*' => 'nullable|string|max:255',
         ]);
 
-        foreach ($request->file('images') as $file) {
-            $path = $file->store('gallery', 'public');
-            $album->images()->create([
-                'image_path' => $path,
+        $images = $request->file('images');
+        $captions = $request->input('captions');
+
+        foreach ($images as $index => $image) {
+            $path = $image->store('public/gallery');
+
+            Image::create([
+                'album_id' => $album->id,
+                'path' => str_replace('public/', 'storage/', $path),
+                'caption' => $captions[$index] ?? null,
             ]);
         }
 

@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('albums_id')->constrained()->onDelete('cascade'); // ✅ NOT albums_id
             $table->string('image_path');
+            $table->string('caption')->nullable();
             $table->timestamps();
         });
     }
