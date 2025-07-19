@@ -12,7 +12,7 @@
 
     <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8 flex justify-center items-center w-full">
 
-         <x-pdf-viewer-turn src="{{ Storage::url($paper->pdf_path) }}" :paper="$paper" />
+         <x-pdf-viewer-turn src="{{ asset($paper->pdf_path) }}" :paper="$paper" />
     </div>
 
 

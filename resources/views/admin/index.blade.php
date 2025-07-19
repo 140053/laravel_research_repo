@@ -52,7 +52,7 @@
                         <h3 class="text-lg font-semibold">Gallery Management</h3>
                         <ul class="mt-4 ">
                             <li class="p-4 shadow mb-2">
-                                <a href="" class="text-blue-600 hover:underline flex justify-between">
+                                <a href="{{ route('admin.gallery.index') }}" class="text-blue-600 hover:underline flex justify-between">
                                     Manage Album
                                     <span class=" ml-3 inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-green-600/20 ring-inset">0</span>
                                 </a>

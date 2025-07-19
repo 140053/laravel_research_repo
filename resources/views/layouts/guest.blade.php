@@ -13,6 +13,24 @@
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+         <script>
+            // Check localStorage for a saved theme preference
+            const savedTheme = localStorage.getItem('theme');
+            // Check if the user's system prefers dark mode
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+            // Apply the theme class based on saved preference or system preference
+            if (savedTheme === 'dark' || (savedTheme === null && prefersDark)) {
+                // If 'dark' is explicitly saved, OR if no theme is saved and system prefers dark
+                document.documentElement.classList.add('dark');
+            } else if (savedTheme === 'light') {
+                // If 'light' is explicitly saved, ensure dark class is removed
+                document.documentElement.classList.remove('dark');
+            }
+            // If savedTheme is null and prefersDark is false, no action needed (defaults to light)
+        </script>
+        
     </head>
     <body class="font-sans text-gray-900 antialiased">
         <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100 dark:bg-gray-900">
