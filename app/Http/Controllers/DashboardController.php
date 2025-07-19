@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\ResearchPaper;
+use App\Models\Albums;
 
 
 
@@ -51,6 +52,16 @@ class DashboardController extends Controller
     {
         $paper = ResearchPaper::findOrFail($id);
         return view('dashboard.research.fulltext.index', compact('paper'));
+    }
+
+
+    public function view(Albums $album)
+    {
+        $album = Albums::with('Images')->findOrFail($album->id);
+
+        //dd($album);
+        return view('dashboard.gallery.view', compact('album'));
+
     }
 
 

@@ -23,4 +23,12 @@ class AlbumController extends Controller
 
         return redirect()->route('admin.gallery.index')->with('success', 'Album created successfully.');
     }
+
+    public function destroy(Albums $album)
+    {
+        $album->delete();
+
+        return redirect()->route('admin.gallery.index')->with('success', 'Album deleted successfully.');
+    }
+
 }

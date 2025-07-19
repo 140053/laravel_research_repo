@@ -29,6 +29,11 @@ Route::get('/categories', [HomeController::class, 'categories'])
     ->name('categories');
 
 
+Route::get('/phpinfo', function () {
+    phpinfo();
+});
+
+
 
 
 // ----------- ADMIN ROUTES ---------------
@@ -36,13 +41,13 @@ Route::get('/categories', [HomeController::class, 'categories'])
 Route::get('/admin', [AdminController::class, 'index'])
     ->middleware(['auth', 'role:admin'])
     ->name('admin.index');
-    
+
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
 
 
     // Import Route
     Route::get('research/import', [ResearchPaperController::class, 'showImportForm'])->name('research.import.index');
-    
+
     Route::post('research/import/preview', [ResearchPaperController::class, 'previewImport'])->name('research.import.preview');
 
     Route::post('research/import', [ResearchPaperController::class, 'handleImport'])->name('research.import.process');
@@ -64,32 +69,25 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::delete('articles/images/{image}', [ArticlesController::class, 'deleteImage'])->name('articles.deleteImage');
 
 
-    //Gallery 
-    //Route::resource('albums', GalleryControllers::class);
-   //// Route::get('albums', [GalleryControllers::class, 'index'])->name('albums.index');
-   // Route::get('albums/create', [GalleryControllers::class, 'create'])->name('albums.create');
-   // Route::get('albums/store', [GalleryControllers::class, 'store'])->name('albums.store');
-   // Route::post('albums/store', [GalleryControllers::class, 'store'])->name('albums.store');
-    
-   // Route::get('/albums/{album}/edit', [GalleryControllers::class, 'edit'])->name('admin.albums.edit');
-
-    //Route::post('albums/edit', [GalleryControllers::class, 'edit'])->name('albums.edit');
-   // Route::post('albums/destroy', [GalleryControllers::class, 'destroy'])->name('albums.destroy');
-   // Route::post('albums/update', [GalleryControllers::class, 'update'])->name('albums.update');
-   
+   // Album
     Route::get('/gallery', [GalleryController::class, 'index'])->name('gallery.index');
-    Route::get('gallery/albums/{album}/images/create', [GalleryController::class, 'create'])->name('albums.images.create');
+    Route::get('gallery/view/{album}', [GalleryController::class, 'view'])->name('gallery.view');
+    //Route::get('gallery/albums/{album}/images/create', [GalleryController::class, 'create'])->name('albums.images.create');
     Route::get('gallery/albums/{album}/images/create', [GalleryController::class, 'create'])->name('gallery.albums.images.create');
 
-    Route::post('/gallery/albums/{album}/images', [GalleryController::class, 'store'])->name('albums.images.store');
+    Route::post('gallery/albums/{album}/images', [GalleryController::class, 'store'])->name('albums.images.store');
+
+    Route::delete('gallery/images/{image}', [GalleryController::class, 'destroy'])->name('gallery.images.destroy');
+
 
     //Route::post('/albums/{album}/images', [GalleryController::class, 'store'])->name('albums.images.store');
 
 
     Route::get('gallery/albums/create', [AlbumController::class, 'create'])->name('gallery.albums.create');
     Route::post('albums', [AlbumController::class, 'store'])->name('gallery.albums.store');
+    Route::delete('gallery/albums/{album}', [AlbumController::class, 'destroy'])->name('gallery.albums.destroy');
 
-   
+
 
 });
 
@@ -110,8 +108,11 @@ Route::get('/dashboard', [ DashboardController::class, 'index'])
 Route::middleware(['auth', 'role:user'])->prefix('dashboard')->name('dashboard.')->group(function () {
     // Resource routes for research papers
     Route::resource('research', DashboardController::class);
-    
+
     Route::get('research/{id}/fulltext', [DashboardController::class, 'fulltext'])->name('research.fulltext.index');
+
+    Route::get('gallery/view/{album}', [DashboardController::class, 'view'])->name('gallery.view');
+
 
 });
 
@@ -123,15 +124,15 @@ Route::middleware(['auth', 'role:user'])->prefix('dashboard')->name('dashboard.'
 
 
 
- 
-
-
-    
 
 
 
 
-    
+
+
+
+
+
 // ----------- PROFILE ROUTES ---------------
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

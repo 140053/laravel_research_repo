@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+
 
 use App\Models\ResearchPaper;
 use App\Models\Tag;
-use Illuminate\Support\Str; 
+
+use App\Models\Albums;
+use App\Models\Images;
 
 
 class HomeController extends Controller
@@ -20,13 +22,28 @@ class HomeController extends Controller
             ->limit(12)
             ->get();
 
-        $papers = ResearchPaper::query()
+        $papers = ResearchPaper::query() //    with('tags')
             ->where('status', true)
             ->latest() // optional: orders by created_at
-            ->limit(6)
+            ->limit(4)
+            ->with('tags')
             ->get();   // ✅ Execute the query
+        //dd($papers);
 
-        return view('welcome', compact('papers', 'tag'));
+        $randomPapers = ResearchPaper::query()
+            ->where('status', true)
+            ->inRandomOrder()
+            ->limit(3)
+            ->get();
+        $albums = Albums::query()           
+            ->inRandomOrder()
+            ->with('Images')
+            ->limit(4)
+            ->get();
+
+        //dd($albums);
+
+        return view('welcome', compact('papers', 'tag', 'randomPapers', 'albums'));
     }
 
     public function about(){
@@ -40,6 +57,8 @@ class HomeController extends Controller
     public function browse(){
         return view('browse');
     }
+
+   
 
     /*
     public function author(){
@@ -60,7 +79,7 @@ class HomeController extends Controller
             ->where('status', true)
             ->latest() // optional: orders by created_at
             ->limit(6)
-            ->get(); 
+            ->get();
 
         $allAuthors = [];
 
@@ -95,7 +114,7 @@ class HomeController extends Controller
         sort($uniqueAuthors);
 
         // 8. LIMIT the array to the first 10 authors
-        $limitedAuthors = array_slice($uniqueAuthors, 0, 10);
+        $limitedAuthors = array_slice($uniqueAuthors, 0, 5);
 
         // Pass the unique authors list to the view
         return view('authors', compact('uniqueAuthors'));
