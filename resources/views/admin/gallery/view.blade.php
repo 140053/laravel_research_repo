@@ -5,7 +5,10 @@
     </x-slot>
 
 
+    <livewire:album-carousel :album="$album" />
 
+
+ {{-- 
 
     <div class="container mx-auto px-5 sm:px-6 lg:px-8 py-12 mb-5">
         <div x-data="carousel()" x-init="init()" class="relative w-full  overflow-hidden rounded-lg">
@@ -96,5 +99,7 @@
             }
         }
     </script>
+
+    --}}
 
 </x-app-layout>

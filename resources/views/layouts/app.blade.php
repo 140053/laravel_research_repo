@@ -17,6 +17,9 @@
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
+    <!-- Add in <head> -->
+    @livewireStyles
+
     <script>
         // Check localStorage for a saved theme preference
         const savedTheme = localStorage.getItem('theme');
@@ -61,6 +64,9 @@
 
     </div>
     <!-- Footer -->
+
+    <!-- Add before </body> -->
+    @livewireScripts
 
 </body>
 

