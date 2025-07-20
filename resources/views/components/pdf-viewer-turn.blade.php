@@ -14,9 +14,9 @@
 
 <!-- ✅ Flipbook container -->
 <div class="my-10">
-    <div id="flipbook" class="flipbook shadow-lg mx-auto">
-        <div class="hard ">
-            <div class="p-3"><h2 class="text-2xl">{{ $paper->title }}<h2> {{ $paper->authors ? $paper->authors : '' }},<br> {{ $paper->publisher }}, {{ $paper->year }}    </div>
+    <div id="flipbook" class="flipbook  mx-auto">
+        <div class="hard bg-gray-700">
+            <div class="p-3 "><h2 class="text-2xl ">{{ $paper->title }}<h2> {{ $paper->authors ? $paper->authors : '' }},<br> {{ $paper->publisher }}, {{ $paper->year }}    </div>
         </div>
         <div class="hard"></div>
         <!-- Pages will be injected here -->

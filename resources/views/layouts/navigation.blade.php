@@ -6,7 +6,11 @@
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
                     <a href="/">
-                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
+                        <x-application-logo class=" text-center block h-9 w-auto fill-current text-gray-800 dark:text-gray-200 mr-2" />
+
+                    </a>
+                    <a href="/">
+                        {{ config('app.name')  }}
                     </a>
                 </div>
 
@@ -22,7 +26,7 @@
                         </x-nav-link>
                     @endrole
                 </div>
-                
+
             </div>
             <div class="hidden sm:flex sm:items-center sm:ms-6">
                     <x-themetoggle />
@@ -61,7 +65,7 @@
                     </x-slot>
                 </x-dropdown>
             </div>
-           
+
 
             <!-- Hamburger -->
             <div class="-me-2 flex items-center sm:hidden">
@@ -72,9 +76,9 @@
                     </svg>
                 </button>
             </div>
-             
+
         </div>
-       
+
     </div>
 
     <!-- Responsive Navigation Menu -->
@@ -115,7 +119,7 @@
                 </form>
             </div>
         </div>
-         
+
     </div>
-   
+
 </nav>

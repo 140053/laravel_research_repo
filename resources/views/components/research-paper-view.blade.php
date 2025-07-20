@@ -43,10 +43,11 @@
 
                     @if ($paper->pdf_path)
                         <div class=" w-[350px]  max-w-sm mx-auto flex flex-col justify-center">
-                            <x-pdf-thumbnail :src="Storage::url($paper->pdf_path)" id="thumbnail-{{ $paper->id }}" />
+                           
+                            <x-pdf-thumbnail src="{{ asset($paper->pdf_path) }}" id="thumbnail-{{ $paper->id }}" />
                             <a href="{{ auth()->user()->hasRole('admin') ? route('admin.research.fulltext.index', $paper->id) : route('dashboard.research.fulltext.index', $paper->id) }}" class="bg-green-600 text-white text-center px-4 py-2 rounded hover:bg-green-700 w-full">View Full text</a>
                         </div>
-                       
+
                     @endif
 
 

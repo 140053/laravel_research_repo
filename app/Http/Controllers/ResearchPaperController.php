@@ -6,6 +6,7 @@ use App\Models\ResearchPaper;
 use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Jenssegers\Agent\Agent;
 
 use App\Imports\ResearchPaperImport;
 use Maatwebsite\Excel\Facades\Excel;
@@ -15,7 +16,7 @@ use Illuminate\Support\Collection;
 
 class ResearchPaperController extends Controller
 {
-    //import 
+    //import
     public function showImportForm()
     {
         return view('admin.research.import.index');
@@ -70,7 +71,7 @@ class ResearchPaperController extends Controller
     public function index(Request $request)
     {
 
-        
+
         $query = ResearchPaper::query()
                 ->where('status', true);
 
@@ -105,7 +106,7 @@ class ResearchPaperController extends Controller
             });
         }
 
-        
+
 
         $papers = $query->with('tags')->paginate(10);
 
@@ -147,7 +148,7 @@ class ResearchPaperController extends Controller
     public function massApprove(Request $request)
     {
         $ids = $request->input('ids', []);
-        
+
         if (empty($ids)) {
             return redirect()->back()->with('error', 'No papers selected.');
         }
@@ -195,8 +196,20 @@ class ResearchPaperController extends Controller
 
     public function fulltext(string $id)
     {
+        $agent = new Agent();
+
+        if ($agent->isDesktop()) {
+            $device = 'desktop';
+        } elseif ($agent->isTablet()) {
+            $device = 'tablet';
+        } elseif ($agent->isMobile()) {
+            $device = 'mobile';
+        } else {
+            $device = 'unknown';
+        }
+
         $paper = ResearchPaper::findOrFail($id);
-        return view('admin.research.fulltext.index', compact('paper'));
+        return view('admin.research.fulltext.index', compact('paper', 'device'));
     }
 
     /**
@@ -227,7 +240,7 @@ class ResearchPaperController extends Controller
             'pdf' => 'nullable|file|mimes:pdf|max:20480',
             'tags' => 'nullable|string',
         ]);
-        
+
 
         //dd($validated);
 
@@ -280,7 +293,7 @@ class ResearchPaperController extends Controller
             'pdf' => 'nullable|file|mimes:pdf|max:20480',
             'tags' => 'nullable|string',
         ]);
-        
+
 
         $research->fill($validated);
 

@@ -23,15 +23,15 @@
                                     Manage Research
                                     <span class=" ml-3 inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-green-600/20 ring-inset">{{ $approvedCount}}</span>
                                 </a>
-                            </li> 
+                            </li>
                             <li class="p-4 shadow mb-2">
                                 <a href="{{ route('admin.research.pending.index') }}" class="text-blue-600 hover:underline flex justify-between">
                                     Pending Research
                                     <span class=" ml-3 inline-flex items-center  rounded-md bg-red-50 px-2 py-1 text-xs font-medium text-red-700 ring-1 ring-red-600/10 ring-inset">{{ $pendingCount}}</span>
                                 </a>
-                            </li>   
-                                                      
-                            
+                            </li>
+
+
 
                         </ul>
                     </div>
@@ -44,7 +44,7 @@
                                     Manage Article
                                     <span class=" ml-3 inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-green-600/20 ring-inset">0</span>
                                 </a>
-                            </li> 
+                            </li>
                         </ul>
                     </div>
 
@@ -52,11 +52,11 @@
                         <h3 class="text-lg font-semibold">Gallery Management</h3>
                         <ul class="mt-4 ">
                             <li class="p-4 shadow mb-2">
-                                <a href="" class="text-blue-600 hover:underline flex justify-between">
+                                <a href="{{ route('admin.gallery.index') }}" class="text-blue-600 hover:underline flex justify-between">
                                     Manage Album
-                                    <span class=" ml-3 inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-green-600/20 ring-inset">0</span>
+                                    <span class=" ml-3 inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-green-600/20 ring-inset">{{ $album_count  }}</span>
                                 </a>
-                            </li> 
+                            </li>
                         </ul>
                     </div>
 
@@ -68,13 +68,13 @@
                                     Users
                                     <span class=" ml-3 inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-green-600/20 ring-inset">{{ $users}}</span>
                                 </a>
-                            </li> 
+                            </li>
                         </ul>
                     </div>
                 </div>
             </div>
 
-          
+
         </div>
     </div>
 </x-app-layout>
