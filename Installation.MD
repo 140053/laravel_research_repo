@@ -61,7 +61,11 @@ php artisan migrate
 ```
 php artisan migrate:fresh --seed
 ```
-7. Run the Application 
+7. Setup Public folder
+```
+php artisan Storage:link
+```
+8. Run the Application 
 ```
 php artisan serve
 ```
