@@ -60,6 +60,8 @@
         @php
             $isAdmin = auth()->check() && auth()->user()->hasRole('admin');
             $isGuest = auth()->guest();
+
+            $dash = $isAdmin ? route('admin.index') : ($isGuest ? route('login') : route('dashboard'));
         @endphp
 
 
@@ -74,7 +76,8 @@
                 <section class="lg:col-span-1 space-y-8">
                     <!-- Latest Insights Card -->
                     <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-100 dark:bg-gray-800">
-                        <h2 class="text-xl font-semibold text-gray-900 mb-4 dark:text-gray-200">New Discoveries This Week</h2>
+                        <h2 class="text-xl font-semibold text-gray-900 mb-4 dark:text-gray-200">New Discoveries This
+                            Week</h2>
                         <ul class="space-y-3">
                             @foreach ($randomPapers as $paper)
                                 <!-- Card -->
@@ -94,12 +97,6 @@
                                                 : route('dashboard.research.index'));
 
                                         $detailsText = $isGuest ? 'Login to View Details' : 'View Details';
-
-                                        $dash = $isAdmin
-                                            ? route('admin.index')
-                                            : ($isGuest
-                                                ? route('login')
-                                                : route('dashboard'));
 
                                     @endphp
 
@@ -150,9 +147,12 @@
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
 
                         @foreach ($albums as $album)
-
                             @php
-                                $album_link = $isAdmin ? route('admin.gallery.view', $album) : ($isGuest ? route('login') : route('dashboard.gallery.view', $album));
+                                $album_link = $isAdmin
+                                    ? route('admin.gallery.view', $album)
+                                    : ($isGuest
+                                        ? route('login')
+                                        : route('dashboard.gallery.view', $album));
                             @endphp
                             <div
                                 class="relative group rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300">
@@ -168,8 +168,10 @@
                                 <div
                                     class="absolute inset-0 from-green-800 to-blue-800 bg-gradient-to-br bg-opacity-80 flex flex-col items-center justify-center text-center px-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ">
                                     <a href="{{ $album_link }}">
-                                    <span class="text-white text-xl font-bold mb-2">{{ $album->name }}</span><br>
-                                    <span class="text-white text-sm"> {{ \Illuminate\Support\Str::limit(  $album->description, 50, '...') }} </span>
+                                        <span class="text-white text-xl font-bold mb-2">{{ $album->name }}</span><br>
+                                        <span class="text-white text-sm">
+                                            {{ \Illuminate\Support\Str::limit($album->description, 50, '...') }}
+                                        </span>
                                     </a>
                                 </div>
                             </div>
@@ -187,17 +189,16 @@
                 <div class="space-y-6">
                     <!-- Study Entry 1 -->
                     @foreach ($papers as $paper)
-
-                            @php
-                                 $titleLink = $isAdmin
-                                            ? route('admin.research.show', $paper->id)
-                                            : ($isGuest
-                                                ? route('login')
-                                                : route('dashboard.research.show', $paper->id));
-                            @endphp
+                        @php
+                            $titleLink = $isAdmin
+                                ? route('admin.research.show', $paper->id)
+                                : ($isGuest
+                                    ? route('login')
+                                    : route('dashboard.research.show', $paper->id));
+                        @endphp
                         <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-100 dark:bg-gray-800 ">
                             <h3 class="text-xl font-semibold text-gray-900 mb-2">
-                                <a href="{{  $titleLink }}"
+                                <a href="{{ $titleLink }}"
                                     class="hover:text-indigo-700 hover:text-4xl  transition-colors duration-1000 dark:text-gray-200">{{ $paper->title }}</a>
                             </h3>
                             <p class="text-gray-600 text-sm mb-3 dark:text-gray-200">
@@ -212,7 +213,7 @@
                             <div class="flex flex-wrap gap-2">
                                 @if ($paper->tags->isNotEmpty())
                                     @foreach ($paper->tags as $tg)
-                                         @php
+                                        @php
 
                                             $tag_links = $isAdmin
                                                 ? route('admin.research.index', ['category' => $tg->name])
