@@ -60,7 +60,7 @@
         </a>
     </div>
 
-    <div class="mt-6 hidden">
+    <div class="mt-6 hidden ">
         {{ $papers->links() }}
     </div>
 </section>

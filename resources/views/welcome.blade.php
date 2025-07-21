@@ -36,6 +36,10 @@
         @php
             $isAdmin = auth()->check() && auth()->user()->hasRole('admin');
             $isGuest = auth()->guest();
+
+           
+
+
         @endphp
 
        
@@ -52,20 +56,20 @@
                 <section class="lg:col-span-1 space-y-8">
                   
                     <!-- 🧠 New Discoveries -->
-                    <livewire:homepage.random-papers />
+                    <livewire:homepage.random-papers  lazy />
 
                     <!-- Most Popular Topics Card -->
                    <!-- 🏷️ Tags -->
-                    <livewire:homepage.tags />
+                    <livewire:homepage.tags  lazy />
                 </section>
 
                 <!-- Curated Collections / Key Areas Section -->
-                 <livewire:homepage.albums-comp />
+                 <livewire:homepage.albums-comp  lazy />
             </div>
 
             <!-- Recent Studies / Projects Section (Full Width below the grid) -->
            <!-- 📚 Recent Research Papers -->
-            <livewire:homepage.recent-papers />
+            <livewire:homepage.recent-papers  lazy />
         </main>
 
 

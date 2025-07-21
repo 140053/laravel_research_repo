@@ -13,7 +13,7 @@ class RecentPapers extends Component
     public function render()
     {
         return view('livewire.homepage.recent-papers', [
-            'papers' => ResearchPaper::with('tags')->latest()->paginate(6),
+            'papers' => ResearchPaper::with('tags')->where('status', true)->latest()->paginate(6),
         ]);
     }
 }

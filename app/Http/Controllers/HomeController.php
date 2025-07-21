@@ -16,6 +16,7 @@ class HomeController extends Controller
     //
     public function index()
     {
+        /*
         $tag = Tag::query()
             //->where('status', true)
             //->latest() // optional: orders by created_at
@@ -40,10 +41,12 @@ class HomeController extends Controller
             ->with('Images')
             ->limit(4)
             ->get();
+            */
 
         //dd($albums);
 
-        return view('welcome', compact('papers', 'tag', 'randomPapers', 'albums'));
+        //return view('welcome', compact('papers', 'tag', 'randomPapers', 'albums'));
+        return view('welcome');
     }
 
     public function about(){

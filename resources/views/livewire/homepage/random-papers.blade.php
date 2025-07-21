@@ -1,10 +1,15 @@
 <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-100 dark:bg-gray-800 mb-8">
     <h2 class="text-xl font-semibold text-gray-900 mb-4 dark:text-gray-200">New Discoveries This Week</h2>
     <ul class="space-y-3">
+
+        @php
+            $isAdmin = auth()->check() && auth()->user()->hasRole('admin');
+            $isGuest = auth()->guest();
+            $dash = $isAdmin ? route('admin.index') : ($isGuest ? route('login') : route('dashboard'));
+        @endphp
         @foreach ($papers as $paper)
             @php
-                $isAdmin = auth()->check() && auth()->user()->hasRole('admin');
-                $isGuest = auth()->guest();
+               
 
                 $titleLink = $isAdmin
                     ? route('admin.research.show', $paper->id)
@@ -12,11 +17,7 @@
                         ? route('login')
                         : route('dashboard.research.show', $paper->id));
 
-                $dash = $isAdmin
-                    ? route('admin.index')
-                    : ($isGuest
-                        ? route('login')
-                        : route('dashboard'));
+                
             @endphp
 
             <li>

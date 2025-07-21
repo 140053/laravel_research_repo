@@ -12,7 +12,7 @@ class RandomPapers extends Component
 
     public function mount()
     {
-        $this->papers = ResearchPaper::inRandomOrder()->limit(5)->get();
+        $this->papers = ResearchPaper::inRandomOrder()->where('status', true)->limit(5)->get();
     }
 
     public function render()

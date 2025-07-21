@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\ResearchPaper;
 use App\Models\Albums;
+use Jenssegers\Agent\Agent;
+
 
 
 
@@ -48,10 +50,22 @@ class DashboardController extends Controller
         //return new \App\View\Components\ResearchPaperView($paper);
     }
 
-     public function fulltext(string $id)
+     public function fulltext(string $id)     
     {
+        $agent = new Agent();
+
+        if ($agent->isDesktop()) {
+            $device = 'desktop';
+        } elseif ($agent->isTablet()) {
+            $device = 'tablet';
+        } elseif ($agent->isMobile()) {
+            $device = 'mobile';
+        } else {
+            $device = 'unknown';
+        }
+
         $paper = ResearchPaper::findOrFail($id);
-        return view('dashboard.research.fulltext.index', compact('paper'));
+        return view('dashboard.research.fulltext.index', compact('paper', 'device'));
     }
 
 
