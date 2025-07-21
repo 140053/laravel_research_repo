@@ -18,13 +18,13 @@ return new class extends Migration
             $table->longText('editors')->nullable();        // upgraded to longText
             $table->enum('tm', ['P', 'NP'])->default('P')->comment('P = Published, NP = Not Published');
             $table->enum('type', ['Journal', 'Conference', 'Book', 'Thesis', 'Report'])->default('Journal');
-            $table->string('publisher')->nullable();
+            $table->longText('publisher')->nullable();
             $table->string('isbn')->nullable();
             $table->longText('abstract')->nullable();       // upgraded to longText
             $table->year('year')->nullable();
             $table->string('department')->nullable();
-            $table->string('pdf_path')->nullable();
-            $table->string('external_link')->nullable();
+            $table->longText('pdf_path')->nullable();
+            $table->longText('external_link')->nullable();
             $table->longText('citation')->nullable();       // upgraded to longText
             $table->longText('keyword')->nullable();        // upgraded to longText
             $table->boolean('status')->default(false)->comment('Indicates if the research appears in the collection');

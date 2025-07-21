@@ -8,7 +8,7 @@
 
         @foreach ($albums as $album)
             @php
-                $album_link = $isAdmin
+                $album_links = $isAdmin
                     ? route('admin.gallery.view', $album)
                     : ($isGuest
                         ? route('login')
@@ -27,7 +27,7 @@
 
                 <div
                     class="absolute inset-0 from-green-800 to-blue-800 bg-gradient-to-br bg-opacity-80 flex flex-col items-center justify-center text-center px-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <a href="{{ $album_link }}">
+                    <a href="{{ $album_links }}">
                         <span class="text-white text-xl font-bold mb-2">{{ $album->name }}</span><br>
                         <span class="text-white text-sm">
                             {{ \Illuminate\Support\Str::limit($album->description, 50, '...') }}
