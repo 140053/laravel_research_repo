@@ -7,6 +7,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ResearchPaperController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ArticlesController;
+use App\Http\Controllers\CsvImportController;
 
 
 use App\Http\Controllers\GalleryController;
@@ -44,6 +45,10 @@ Route::get('/admin', [AdminController::class, 'index'])
 
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
 
+    // CSV Import Routes
+    Route::get('csv-import', [CsvImportController::class, 'showImportForm'])->name('csv-import.form');
+    Route::post('csv-import', [CsvImportController::class, 'import'])->name('csv-import.process');
+    Route::get('csv-import/template', [CsvImportController::class, 'downloadTemplate'])->name('csv-import.template');
 
     // Import Route
     Route::get('research/import', [ResearchPaperController::class, 'showImportForm'])->name('research.import.index');
@@ -95,11 +100,6 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
 
 
 
-
-
-
-
-
 // ----------- DASHBOARD ROUTES ---------------
 Route::get('/dashboard', [ DashboardController::class, 'index'])
     ->middleware(['auth'])
@@ -115,19 +115,6 @@ Route::middleware(['auth', 'role:user'])->prefix('dashboard')->name('dashboard.'
 
 
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

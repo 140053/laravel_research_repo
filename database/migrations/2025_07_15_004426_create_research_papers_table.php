@@ -17,12 +17,14 @@ return new class extends Migration
             $table->longText('authors')->nullable();        // upgraded to longText
             $table->longText('editors')->nullable();        // upgraded to longText
             $table->enum('tm', ['P', 'NP'])->default('P')->comment('P = Published, NP = Not Published');
-            $table->enum('type', ['Journal', 'Conference', 'Book', 'Thesis', 'Report'])->default('Journal');
+
+            $table->enum('type', ['Journal', 'Conference', 'Book', 'Thesis', 'Report','Research','Article'])->default('Journal');
             $table->longText('publisher')->nullable();
-            $table->longText('isbn')->nullable();
+            $table->string('isbn')->nullable();
             $table->longText('abstract')->nullable();       // upgraded to longText
             $table->year('year')->nullable();
-            $table->longText('department')->nullable();
+            $table->string('department')->nullable();
+
             $table->longText('pdf_path')->nullable();
             $table->longText('external_link')->nullable();
             $table->longText('citation')->nullable();       // upgraded to longText

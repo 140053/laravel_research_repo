@@ -32,20 +32,11 @@
             </div>
         </section>
 
-
         @php
             $isAdmin = auth()->check() && auth()->user()->hasRole('admin');
             $isGuest = auth()->guest();
 
-           
-
-
         @endphp
-
-       
-
-
-
 
 
         <!-- Main Content Area -->
