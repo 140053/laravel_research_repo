@@ -8,10 +8,7 @@
 
         @foreach ($albums as $album)
             @php
-                $album_links = $isAdmin
-                    ? route('admin.gallery.view', $album)
-                    : ($isGuest
-                        ? route('login')
+                $album_links = $isAdmin  ? route('admin.gallery.view', $album) : ($isGuest? route('login')
                         : route('dashboard.gallery.view', $album));
             @endphp
 

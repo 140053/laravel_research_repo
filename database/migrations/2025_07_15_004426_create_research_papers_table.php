@@ -17,7 +17,7 @@ return new class extends Migration
             $table->longText('authors')->nullable();        // upgraded to longText
             $table->longText('editors')->nullable();        // upgraded to longText
             $table->enum('tm', ['P', 'NP'])->default('P')->comment('P = Published, NP = Not Published');
-            $table->enum('type', ['Journal', 'Conference', 'Book', 'Thesis', 'Report'])->default('Journal');
+            $table->enum('type', ['Journal', 'Conference', 'Book', 'Thesis', 'Report','Research','Article'])->default('Journal');
             $table->longText('publisher')->nullable();
             $table->string('isbn')->nullable();
             $table->longText('abstract')->nullable();       // upgraded to longText
