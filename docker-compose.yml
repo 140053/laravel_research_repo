@@ -1,62 +1,38 @@
-version: '3.9'
-
 services:
   app:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: laravel-app
+    container_name: insighthub-app
     working_dir: /var/www/html
+    #environment:
+     # - APP_ENV=production
+     # - DB_HOST=host.docker.internal
+     # - DB_DATABASE=resrepo
+     # - DB_USERNAME=root
+     # - DB_PASSWORD=140053ken!
+    #depends_on:
+      # - db  # Removed since db service is not used
+
+  vite:
+    image: node:20-alpine
+    container_name: insighthub-vite
+    working_dir: /app
     volumes:
-      - ./:/var/www/html
-    environment:
-      - DB_CONNECTION=mysql
-      - DB_HOST=host.docker.internal  # Or external IP
-      - DB_PORT=3306
-      - DB_DATABASE=laravel
-      - DB_USERNAME=root
-      - DB_PASSWORD=secret
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
-    networks:
-      - laravel
+      - .:/app
+    command: sh -c "npm install && npm run build"
+    # No ports exposed, just builds assets
 
   nginx:
     image: nginx:alpine
-    container_name: laravel-nginx
+    container_name: insighthub-nginx
     ports:
-      - "8000:80"
+      - "8001:80"
     volumes:
-      - ./:/var/www/html
-      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - ./public:/var/www/html/public:ro
+      - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
     depends_on:
       - app
-      - frontend
-    networks:
-      - laravel
 
-  redis:
-    image: redis:alpine
-    container_name: laravel-redis
-    ports:
-      - "6379:6379"
-    networks:
-      - laravel
-
-  frontend:
-    build:
-      context: ./docker/frontend
-      dockerfile: Dockerfile
-    container_name: laravel-frontend
-    working_dir: /app
-    volumes:
-      - ./:/app
-    command: ["npm", "run", "dev"]
-    ports:
-      - "5173:5173"  # Vite port
-    networks:
-      - laravel
-
-networks:
-  laravel:
-    driver: bridge
+# db service removed
+# volumes section removed since only used by db

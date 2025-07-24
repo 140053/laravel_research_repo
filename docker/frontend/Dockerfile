@@ -1,7 +1,13 @@
-FROM node:20-alpine
+FROM node:20
 
 WORKDIR /app
 
-RUN npm install -g vite
+COPY package.json package-lock.json ./
 
-EXPOSE 5173
+RUN npm ci
+
+COPY . .
+
+RUN npm run build
+
+CMD ["npm", "run", "dev"]
