@@ -18,7 +18,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <!-- Add in <head> -->
-    @livewireStyles
+    
 
     <script>
         // Check localStorage for a saved theme preference
@@ -66,7 +66,7 @@
     <!-- Footer -->
 
     <!-- Add before </body> -->
-    @livewireScripts
+    
 
 </body>
 
