@@ -7,7 +7,7 @@ namespace App\Http\Controllers;
 use App\Models\ResearchPaper;
 use App\Models\Tag;
 
-use App\Models\Albums;
+use App\Models\Album;
 use App\Models\Images;
 use App\Models\FeatureMaterial;
 
@@ -39,14 +39,14 @@ class HomeController extends Controller
     }
 
     public function gallery(){
-        $albums = Albums::with('images')->get();
+        $albums = Album::with('images')->get();
         //dd($albums);
         return view('gallery', compact('albums'));
     }
 
-    public function viewAlbum(Albums $album)
+    public function viewAlbum(Album $album)
     {
-        $album = Albums::with('images')->findOrFail($album->id);
+        $album = Album::with('images')->findOrFail($album->id);
         return view('gallery.view', compact('album'));
     }
 

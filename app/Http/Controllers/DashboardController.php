@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\ResearchPaper;
-use App\Models\Albums;
+use App\Models\Album;
 use Jenssegers\Agent\Agent;
 
 
@@ -69,9 +69,9 @@ class DashboardController extends Controller
     }
 
 
-    public function view(Albums $album)
+    public function view(Album $album)
     {
-        $album = Albums::with('Images')->findOrFail($album->id);
+        $album = Album::with('Images')->findOrFail($album->id);
 
         //dd($album);
         return view('dashboard.gallery.view', compact('album'));

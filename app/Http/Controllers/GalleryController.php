@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Images;
-use App\Models\Albums;
+use App\Models\Album;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Log;
 
@@ -12,13 +12,13 @@ class GalleryController extends Controller
 {
     public function index()
     {
-        $albums = Albums::with('images')->paginate(5);
+        $albums = Album::with('images')->paginate(5);
         return view('admin.gallery.index', compact('albums'));
     }
 
-    public function view(Albums $album)
+    public function view(Album $album)
     {
-        $album = Albums::with('Images')->findOrFail($album->id);
+        $album = Album::with('Images')->findOrFail($album->id);
 
         //dd($album);
         return view('admin.gallery.view', compact('album'));
@@ -26,7 +26,7 @@ class GalleryController extends Controller
     }
 
 
-    public function create(Albums $album)
+    public function create(Album $album)
     {
         return view('admin.gallery.upload', compact('album'));
     }
@@ -59,7 +59,7 @@ class GalleryController extends Controller
     }
         */
     
-    public function store(Request $request, Albums $album)
+    public function store(Request $request, Album $album)
     {
         try {
             $request->validate([
