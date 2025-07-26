@@ -13,7 +13,9 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 COPY . .
 
 # Install composer dependencies
-RUN composer install --no-dev --optimize-autoloader
+RUN composer install
+# --no-dev
+# --optimize-autoloader
 
 # Set proper permissions
 RUN chown -R www-data:www-data /var/www/html \
