@@ -11,8 +11,8 @@ class UserController extends Controller
     //
 
     public function index(){
-        $users = User::query()
-                ->get();
+        $users = User::paginate(5);
+                
 
                 //dd($users);
 

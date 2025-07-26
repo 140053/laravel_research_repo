@@ -9,43 +9,13 @@ use App\Models\Tag;
 
 use App\Models\Albums;
 use App\Models\Images;
-
+use App\Models\FeatureMaterial;
 
 class HomeController extends Controller
 {
     //
     public function index()
-    {
-        /*
-        $tag = Tag::query()
-            //->where('status', true)
-            //->latest() // optional: orders by created_at
-            ->limit(12)
-            ->get();
-
-        $papers = ResearchPaper::query() //    with('tags')
-            ->where('status', true)
-            ->latest() // optional: orders by created_at
-            ->limit(4)
-            ->with('tags')
-            ->get();   // ✅ Execute the query
-        //dd($papers);
-
-        $randomPapers = ResearchPaper::query()
-            ->where('status', true)
-            ->inRandomOrder()
-            ->limit(3)
-            ->get();
-        $albums = Albums::query()           
-            ->inRandomOrder()
-            ->with('Images')
-            ->limit(4)
-            ->get();
-            */
-
-        //dd($albums);
-
-        //return view('welcome', compact('papers', 'tag', 'randomPapers', 'albums'));
+    {        
         return view('welcome');
     }
 
@@ -57,8 +27,27 @@ class HomeController extends Controller
         return view('categories');
     }
 
-    public function browse(){
-        return view('browse');
+    public function feature(){
+        //$brochure = FeatureMaterial::where('type', 'pdf')->latest()->first();
+        $vedio = FeatureMaterial::where('type', 'link')
+            ->whereNotNull('url')
+            ->where('url', '!=', '')
+            //->where('hidden', false)
+            ->get(); //get all vedio with URL
+        //dd($vedio);
+        return view('feature', compact('vedio'));
+    }
+
+    public function gallery(){
+        $albums = Albums::with('images')->get();
+        //dd($albums);
+        return view('gallery', compact('albums'));
+    }
+
+    public function viewAlbum(Albums $album)
+    {
+        $album = Albums::with('images')->findOrFail($album->id);
+        return view('gallery.view', compact('album'));
     }
 
    

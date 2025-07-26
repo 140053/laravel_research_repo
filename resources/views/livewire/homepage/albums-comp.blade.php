@@ -2,13 +2,7 @@
     <h2 class="text-2xl font-bold text-gray-900 mb-6 dark:text-gray-200">Captured in Action </h2>
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
         @foreach ($albums as $album)
-            @php
-                if (auth()->check() && auth()->user()->hasRole('admin')) {
-                    $album_linkss = route('admin.gallery.view', $album);                
-                } else {
-                    $album_linkss = route('dashboard.gallery.view', $album);
-                }
-            @endphp
+            
 
             <div class="relative group rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300">
                 @if ($album->images->first())
@@ -22,7 +16,7 @@
 
                 <div
                     class="absolute inset-0 from-green-800 to-blue-800 bg-gradient-to-br bg-opacity-80 flex flex-col items-center justify-center text-center px-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <a href="{{ $album_linkss }}">
+                    <a href="{{ route('gallery.view', $album) }}">
                         <span class="text-white text-xl font-bold mb-2">{{ $album->name }}</span><br>
                         <span class="text-white text-sm">
                             {{ \Illuminate\Support\Str::limit($album->description, 50, '...') }}

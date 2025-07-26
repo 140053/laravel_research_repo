@@ -92,6 +92,10 @@
                     </div>
                 </div>
             @endforeach
+
+            <div class="mt-6">
+                {{ $albums->links() }}
+            </div>
         </div>
     </div>
 </main>

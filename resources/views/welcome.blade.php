@@ -10,7 +10,7 @@
         <section
             class="relative bg-gradient-to-r from-green-950 to-blue-900 py-16 px-5 sm:px-6 lg:px-8 rounded-b-lg shadow-md dark:bg-gray-800 text-center rounded-md overflow-hidden">
             <div class="absolute left-4 top-4 ">
-                <img src="{{ asset('img/cbsua-logo.png') }}" class="max-w-[155px] hidden sm:block " alt="cbsua" />
+                <img src="{{ asset('img/cbsua-logo.webp') }}" width="155" height="auto" loading="lazy" class="max-w-[155px] hidden sm:block" alt="CBSUA Logo" />
             </div>
             <h2 class="pt-5 text-white text-5xl font-bold mb-5 dark:text-gray-300">
                 Explore Scholarly Works from Our Institution
@@ -28,7 +28,7 @@
 
             <!-- Constrained Logo Placement -->
             <div class="absolute right-4 top-4 ">
-                <img src="{{ asset('img/pcard-logo.png') }}" class="max-w-[150px] hidden sm:block  " alt="pcard" />
+                <img src="{{ asset('img/pcard-logo.webp') }}" width="150" height="auto" loading="lazy" class="max-w-[150px] hidden sm:block" alt="PCAARRD Logo" />
             </div>
         </section>
 
@@ -47,18 +47,22 @@
                 <section class="lg:col-span-1 space-y-8">
                   
                     <!-- 🧠 New Discoveries -->
-                    <livewire:homepage.random-papers  lazy />
+                    <div wire:loading><div class="animate-pulse h-24 bg-gray-200 rounded mb-4"></div></div>
+                    <livewire:homepage.random-papers lazy />
 
                     <!-- Most Popular Topics Card -->
+                    <div wire:loading><div class="animate-pulse h-12 bg-gray-200 rounded mb-4"></div></div>
                    <!-- 🏷️ Tags -->
                     <livewire:homepage.tags  lazy />
                 </section>
 
                 <!-- Curated Collections / Key Areas Section -->
+                <div wire:loading><div class="animate-pulse h-24 bg-gray-200 rounded mb-4"></div></div>
                  <livewire:homepage.albums-comp  lazy />
             </div>
 
             <!-- Recent Studies / Projects Section (Full Width below the grid) -->
+            <div wire:loading><div class="animate-pulse h-24 bg-gray-200 rounded mb-4"></div></div>
            <!-- 📚 Recent Research Papers -->
             <livewire:homepage.recent-papers  lazy />
         </main>

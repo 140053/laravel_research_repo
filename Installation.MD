@@ -68,5 +68,11 @@ php artisan serve
 
 
 
+## Seeder Option 
+
+```
+php artisan db:seed --class=DevSeed
+```
+
 
 

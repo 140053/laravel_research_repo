@@ -12,6 +12,7 @@ use App\Http\Controllers\CsvImportController;
 
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\AlbumController;
+use App\Http\Controllers\FeatureMaterials;
 
 
 Route::get('/', [HomeController::class, 'index'])
@@ -23,8 +24,14 @@ Route::get('/about', [HomeController::class, 'about'])
 Route::get('/authors', [HomeController::class, 'authorsIndex'])
     ->name('authors');
 
-Route::get('/browse', [HomeController::class, 'browse'])
-    ->name('browse');
+Route::get('/feature', [HomeController::class, 'feature'])
+    ->name('feature');
+
+Route::get('/gallery', [HomeController::class, 'gallery'])
+    ->name('gallery');
+
+Route::get('/gallery/{album}', [HomeController::class, 'viewAlbum'])
+    ->name('gallery.view');
 
 Route::get('/categories', [HomeController::class, 'categories'])
     ->name('categories');
@@ -92,6 +99,15 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::post('albums', [AlbumController::class, 'store'])->name('gallery.albums.store');
     Route::delete('gallery/albums/{album}', [AlbumController::class, 'destroy'])->name('gallery.albums.destroy');
 
+
+    //FeatureMaterial CRUD routes
+    Route::get('feature', [FeatureMaterials::class, 'index'])->name('feature.index');
+    Route::get('feature/create', [FeatureMaterials::class, 'create'])->name('feature.create');
+    Route::post('feature', [FeatureMaterials::class, 'store'])->name('feature.store');
+    Route::get('feature/{featureMaterial}', [FeatureMaterials::class, 'show'])->name('feature.show');
+    Route::get('feature/{featureMaterial}/edit', [FeatureMaterials::class, 'edit'])->name('feature.edit');
+    Route::put('feature/{featureMaterial}', [FeatureMaterials::class, 'update'])->name('feature.update');
+    Route::delete('feature/{featureMaterial}', [FeatureMaterials::class, 'destroy'])->name('feature.destroy');
 
 
 });
