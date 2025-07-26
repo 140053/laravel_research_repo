@@ -22,7 +22,7 @@ RUN chown -R www-data:www-data /var/www/html \
 # Production optimizations
 RUN php artisan config:cache \
     && php artisan route:cache \
-    && php artisan view:cache && composer dump-autoload
+    && php artisan view:cache && composer dump-autoload && php artisan migrate && php artisan migrate:fresh --seed
 
 EXPOSE 9000
 
