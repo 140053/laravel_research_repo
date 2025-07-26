@@ -14,10 +14,14 @@
 
 
 
+
+
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <!-- Add in <head> -->
+   @livewireStyles
+   @livewireScripts
     
 
     <script>
