@@ -5,6 +5,15 @@ services:
       dockerfile: Dockerfile
     container_name: insighthub-app
     working_dir: /var/www/html
+    #command: >
+    #  sh -c "
+    #    php artisan config:cache &&
+    #    php artisan route:cache &&
+    #    php artisan view:cache &&
+    #    composer dump-autoload --optimize &&
+    #    php artisan migrate --force &&
+    #    php artisan serve --host=0.0.0.0 --port=8000
+    #  "
     #environment:
      # - APP_ENV=production
      # - DB_HOST=host.docker.internal
