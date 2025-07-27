@@ -57,7 +57,7 @@
                     </div>
 
                     <div class="mb-4 flex items-center hidden">
-                        <input type="checkbox" name="hidden" id="hidden" value="1" {{ old('hidden', true) ? 'checked' : '' }} class="mr-2">
+                        <input type="checkbox" name="hidden" id="hidden" value="0"  class="mr-2">
                         <label for="hidden" class="font-bold">Hidden</label>
                         @error('hidden') <span class="text-red-600 text-sm ml-2">{{ $message }}</span> @enderror
                     </div>

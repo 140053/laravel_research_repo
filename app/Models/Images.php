@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Album;
+use App\Models\Albums;
 
 class Images extends Model
 {
@@ -13,6 +13,6 @@ class Images extends Model
 
     public function albums()
     {
-        return $this->belongsTo(Album::class);
+        return $this->belongsTo(Albums::class);
     }
 }

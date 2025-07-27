@@ -3,7 +3,7 @@
 namespace App\Livewire\Homepage;
 
 use Livewire\Component;
-use App\Models\Album;
+use App\Models\Albums;
 use Illuminate\Support\Facades\Cache;
 
 class AlbumsComp extends Component
@@ -13,7 +13,7 @@ class AlbumsComp extends Component
     public function mount()
     {
         $this->albums = Cache::remember('albums_comp', 60, function () {
-            return Album::with('images')->latest()->limit(6)->get();
+            return Albums::with('images')->latest()->limit(6)->get();
         });
     }
 

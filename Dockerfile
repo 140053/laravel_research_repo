@@ -26,6 +26,9 @@ RUN php artisan config:cache \
     && php artisan route:cache \
     && php artisan view:cache && composer dump-autoload && php artisan migrate && php artisan migrate:fresh --seed
 
+# Link Storage to Public
+RUN php artisan storage:link
+
 EXPOSE 9000
 
 CMD ["php-fpm"]

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\ResearchPaper;
 use App\Models\User;
-use App\Models\Album;
+use App\Models\Albums;
 
 class AdminController extends Controller
 {
@@ -17,7 +17,7 @@ class AdminController extends Controller
          $pendingCount = ResearchPaper::where('status', false)->count();
 
          //album
-        $album_count = Album::get()->count();
+        $album_count = Albums::get()->count();
 
          //User
          $users = User::get()->count();

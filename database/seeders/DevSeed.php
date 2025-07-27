@@ -6,7 +6,7 @@ use Illuminate\Database\Seeder;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
-use App\Models\Album;
+use App\Models\Albums;
 use App\Models\ResearchPaper;
 class DevSeed extends Seeder
 {
@@ -48,7 +48,7 @@ class DevSeed extends Seeder
 
 
 
-        Album::factory()->count(10)->create();
+        Albums::factory()->count(10)->create();
 
         ResearchPaper::factory()->count(50)->create();
 

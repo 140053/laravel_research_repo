@@ -8,6 +8,9 @@
 
     @vite(['resources/css/app.css', 'resources/js/app.js']) {{-- Optional if you're using Vite --}}
 
+    <!-- Livewire Styles and Scripts -->
+    @livewireStyles
+
         <script>
             // Check localStorage for a saved theme preference
             const savedTheme = localStorage.getItem('theme');
@@ -124,5 +127,18 @@
       <p>&copy; 2025 {{ config('app.name')   }}. All rights reserved.</p>
     </div>
   </footer>
+
+  <!-- Livewire Scripts -->
+  @livewireScripts
+  
+  <script>
+    console.log('Livewire scripts loaded');
+    document.addEventListener('livewire:init', () => {
+      console.log('Livewire initialized');
+    });
+    document.addEventListener('livewire:load', () => {
+      console.log('Livewire loaded');
+    });
+  </script>
 </body>
 </html>

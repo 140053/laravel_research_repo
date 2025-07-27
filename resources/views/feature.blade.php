@@ -36,7 +36,7 @@
 
 
         <section >
-            <x-feature-vedio :vedio="$vedio" />
+            <livewire:feature-vedio />
         </section>
 
 

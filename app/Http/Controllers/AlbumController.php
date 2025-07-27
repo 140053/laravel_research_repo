@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Album;
+use App\Models\Albums;
 
 class AlbumController extends Controller
 {
@@ -19,12 +19,12 @@ class AlbumController extends Controller
             'description' => 'nullable|string',
         ]);
 
-        Album::create($request->only('name', 'description'));
+        Albums::create($request->only('name', 'description'));
 
         return redirect()->route('admin.gallery.index')->with('success', 'Album created successfully.');
     }
 
-    public function destroy(Album $album)
+    public function destroy(Albums $album)
     {
         $album->delete();
 

@@ -71,82 +71,99 @@
 
         <!-- ✅ Flipbook + PDF render logic -->
         <script>
-            const pdfUrl = @json($pdfUrl);
+            function initializeFlipbook() {
+                const pdfUrl = @json($pdfUrl);
 
-            async function waitUntilTurnJsReady() {
-                return new Promise((resolve) => {
-                    const interval = setInterval(() => {
-                        if (typeof $.fn.turn === 'function') {
-                            clearInterval(interval);
-                            resolve();
-                        }
-                    }, 50);
-                });
-            }
-
-            async function renderPDFAndInitFlipbook() {
-                try {
-                    //console.log('Starting PDF render...');
-                    const container = document.getElementById('flipbook');
-                    const insertBefore = container.children[container.children.length - 2];
-
-                    //console.log('Loading PDF from:', pdfUrl);
-                    const pdf = await pdfjsLib.getDocument(pdfUrl).promise;
-                    //console.log('PDF loaded, pages:', pdf.numPages);
-
-                    for (let i = 1; i <= pdf.numPages; i++) {
-                        //console.log(`Rendering page ${i}/${pdf.numPages}...`);
-                        const page = await pdf.getPage(i);
-                        // Dynamically scale to fit 800px width
-                        const scale = 800 / page.getViewport({ scale: 1 }).width;
-                        const viewport = page.getViewport({ scale });
-
-                        const canvas = document.createElement('canvas');
-                        const context = canvas.getContext('2d');
-                        canvas.width = viewport.width;
-                        canvas.height = viewport.height;
-
-                        await page.render({ canvasContext: context, viewport }).promise;
-
-                        const pageDiv = document.createElement('div');
-                        pageDiv.className = 'page';
-                        pageDiv.appendChild(canvas);
-
-                        container.insertBefore(pageDiv, insertBefore);
-                        //console.log(`Page ${i} added`);
-                    }
-
-                    //console.log('Waiting for Turn.js...');
-                    // Wait for Turn.js to be available before initializing
-                    await waitUntilTurnJsReady();
-                    console.log('Turn.js ready, initializing...');
-
-                    $('#flipbook').turn({
-                        width: 900,
-                        height: 600,
-                        autoCenter: true,
-                        elevation: 50,
-                        gradients: true,
-                        when: {
-                            turned: function(event, page, pageObject) {
-                                // Auto-flip the first page after a short delay
-                                if (page === 1) {
-                                    setTimeout(() => {
-                                        $(this).turn('next');
-                                    }, 1000); // 1 second delay
-                                }
-                                    
+                async function waitUntilTurnJsReady() {
+                    return new Promise((resolve) => {
+                        const interval = setInterval(() => {
+                            if (typeof $.fn.turn === 'function') {
+                                clearInterval(interval);
+                                resolve();
                             }
-                        }
+                        }, 50);
                     });
-                    
-                    //console.log('Flipbook initialized successfully');
-                } catch (error) {
-                    console.error('Error rendering PDF:', error);
+                }
+
+                async function renderPDFAndInitFlipbook() {
+                    try {
+                        //console.log('Starting PDF render...');
+                        const container = document.getElementById('flipbook');
+                        if (!container) {
+                            console.error('Flipbook container not found');
+                            return;
+                        }
+                        
+                        const insertBefore = container.children[container.children.length - 2];
+
+                        //console.log('Loading PDF from:', pdfUrl);
+                        const pdf = await pdfjsLib.getDocument(pdfUrl).promise;
+                        //console.log('PDF loaded, pages:', pdf.numPages);
+
+                        for (let i = 1; i <= pdf.numPages; i++) {
+                            //console.log(`Rendering page ${i}/${pdf.numPages}...`);
+                            const page = await pdf.getPage(i);
+                            // Dynamically scale to fit 800px width
+                            const scale = 800 / page.getViewport({ scale: 1 }).width;
+                            const viewport = page.getViewport({ scale });
+
+                            const canvas = document.createElement('canvas');
+                            const context = canvas.getContext('2d');
+                            canvas.width = viewport.width;
+                            canvas.height = viewport.height;
+
+                            await page.render({ canvasContext: context, viewport }).promise;
+
+                            const pageDiv = document.createElement('div');
+                            pageDiv.className = 'page';
+                            pageDiv.appendChild(canvas);
+
+                            container.insertBefore(pageDiv, insertBefore);
+                            //console.log(`Page ${i} added`);
+                        }
+
+                        //console.log('Waiting for Turn.js...');
+                        // Wait for Turn.js to be available before initializing
+                        await waitUntilTurnJsReady();
+                        console.log('Turn.js ready, initializing...');
+
+                        $('#flipbook').turn({
+                            width: 900,
+                            height: 600,
+                            autoCenter: true,
+                            elevation: 50,
+                            gradients: true,
+                            when: {
+                                turned: function(event, page, pageObject) {
+                                    // Auto-flip the first page after a short delay
+                                    if (page === 1) {
+                                        setTimeout(() => {
+                                            $(this).turn('next');
+                                        }, 1000); // 1 second delay
+                                    }
+                                        
+                                }
+                            }
+                        });
+                        
+                        //console.log('Flipbook initialized successfully');
+                    } catch (error) {
+                        console.error('Error rendering PDF:', error);
+                    }
+                }
+
+                // Only initialize if the component is still in the DOM
+                if (document.getElementById('flipbook')) {
+                    renderPDFAndInitFlipbook();
                 }
             }
 
-            document.addEventListener('DOMContentLoaded', renderPDFAndInitFlipbook);
+            // Initialize on DOM content loaded
+            document.addEventListener('DOMContentLoaded', initializeFlipbook);
+            
+            // Initialize on Livewire updates
+            document.addEventListener('livewire:load', initializeFlipbook);
+            document.addEventListener('livewire:update', initializeFlipbook);
         </script>
 
         <!-- ✅ Styles -->

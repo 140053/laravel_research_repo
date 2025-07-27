@@ -48,23 +48,23 @@
                   
                     <!-- 🧠 New Discoveries -->
                     <div wire:loading><div class="animate-pulse h-24 bg-gray-200 rounded mb-4"></div></div>
-                    <livewire:homepage.random-papers lazy />
+                    <livewire:homepage.random-papers />
 
                     <!-- Most Popular Topics Card -->
                     <div wire:loading><div class="animate-pulse h-12 bg-gray-200 rounded mb-4"></div></div>
                    <!-- 🏷️ Tags -->
-                    <livewire:homepage.tags  lazy />
+                    <livewire:homepage.tags />
                 </section>
 
                 <!-- Curated Collections / Key Areas Section -->
                 <div wire:loading><div class="animate-pulse h-24 bg-gray-200 rounded mb-4"></div></div>
-                 <livewire:homepage.albums-comp  lazy />
+                 <livewire:homepage.albums-comp />
             </div>
 
             <!-- Recent Studies / Projects Section (Full Width below the grid) -->
             <div wire:loading><div class="animate-pulse h-24 bg-gray-200 rounded mb-4"></div></div>
            <!-- 📚 Recent Research Papers -->
-            <livewire:homepage.recent-papers  lazy />
+            <livewire:homepage.recent-papers />
         </main>
 
 

@@ -36,6 +36,29 @@ Route::get('/gallery/{album}', [HomeController::class, 'viewAlbum'])
 Route::get('/categories', [HomeController::class, 'categories'])
     ->name('categories');
 
+// Route to serve PDF files with CORS headers
+Route::get('/pdf/{filename}', function ($filename) {
+    $path = storage_path('app/public/feature_materials/' . $filename);
+    
+    if (!file_exists($path)) {
+        abort(404);
+    }
+    
+    return response()->file($path, [
+        'Content-Type' => 'application/pdf',
+        'Access-Control-Allow-Origin' => '*',
+        'Access-Control-Allow-Methods' => 'GET, POST, PUT, DELETE, OPTIONS',
+        'Access-Control-Allow-Headers' => 'Content-Type, Authorization',
+    ]);
+})->name('pdf.serve');
+
+// Handle CORS preflight requests for PDF route
+Route::options('/pdf/{filename}', function () {
+    return response('', 200)
+        ->header('Access-Control-Allow-Origin', '*')
+        ->header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
+        ->header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+});
 
 Route::get('/phpinfo', function () {
     phpinfo();

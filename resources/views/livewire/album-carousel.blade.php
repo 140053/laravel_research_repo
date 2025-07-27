@@ -5,7 +5,7 @@
         @foreach ($album->Images as $index => $image)
             @if ($current === $index)
                 <div class="absolute inset-0 w-full h-full flex items-center justify-center transition-opacity duration-700">
-                    <img src="{{ asset($image->image_path) }}" alt="" class="object-contain w-full h-full rounded-lg" />
+                    <img src="{{ Storage::disk('public')->url($image->image_path) }}" alt="" class="object-contain w-full h-full rounded-lg" />
                     <div class="absolute bottom-0 left-0 w-full bg-black bg-opacity-50 text-white text-lg p-4">
                         {{ $image->caption }}
                     </div>

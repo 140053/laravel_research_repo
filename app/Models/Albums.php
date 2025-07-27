@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Models\Images;
 
-class Album extends Model
+class Albums extends Model
 {
     use HasFactory;
 

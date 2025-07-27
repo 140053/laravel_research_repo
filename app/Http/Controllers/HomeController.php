@@ -7,7 +7,7 @@ namespace App\Http\Controllers;
 use App\Models\ResearchPaper;
 use App\Models\Tag;
 
-use App\Models\Album;
+use App\Models\Albums;
 use App\Models\Images;
 use App\Models\FeatureMaterial;
 
@@ -28,25 +28,19 @@ class HomeController extends Controller
     }
 
     public function feature(){
-        //$brochure = FeatureMaterial::where('type', 'pdf')->latest()->first();
-        $vedio = FeatureMaterial::where('type', 'link')
-            ->whereNotNull('url')
-            ->where('url', '!=', '')
-            //->where('hidden', false)
-            ->get(); //get all vedio with URL
-        //dd($vedio);
-        return view('feature', compact('vedio'));
+        // The Livewire components will handle their own data loading
+        return view('feature');
     }
 
     public function gallery(){
-        $albums = Album::with('images')->get();
+        $albums = Albums::with('images')->get();
         //dd($albums);
         return view('gallery', compact('albums'));
     }
 
-    public function viewAlbum(Album $album)
+    public function viewAlbum(Albums $album)
     {
-        $album = Album::with('images')->findOrFail($album->id);
+        $album = Albums::with('images')->findOrFail($album->id);
         return view('gallery.view', compact('album'));
     }
 

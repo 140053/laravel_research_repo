@@ -67,8 +67,6 @@ class FeatureMaterials extends Controller
             'location' => 'required|in:brochure,vedio,text',
         ]);
 
-        dd($validated);
-
         if ($request->hasFile('file')) {
             $validated['file'] = $request->file('file')->store('feature_materials', 'public');
         } else {

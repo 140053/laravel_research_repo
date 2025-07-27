@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\ResearchPaper;
-use App\Models\Album;
+use App\Models\Albums;
 use Jenssegers\Agent\Agent;
 
 

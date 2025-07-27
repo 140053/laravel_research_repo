@@ -36,16 +36,10 @@ class Brochure extends Component
             });
 
             if ($this->brochure) {
-                // Ensure the PDF URL is a full accessible URL
+                // Use the new PDF route with CORS headers
                 $filePath = $this->brochure->file;
-                if (Storage::disk('public')->exists($filePath)) {
-                    $this->pdfUrl = Storage::disk('public')->url($filePath);
-                } elseif (Storage::disk('local')->exists($filePath)) {
-                    $this->pdfUrl = Storage::disk('local')->url($filePath);
-                } else {
-                    // Fallback to asset() helper for files in public directory
-                    $this->pdfUrl = asset($filePath);
-                }
+                $filename = basename($filePath); // Extract just the filename
+                $this->pdfUrl = route('pdf.serve', ['filename' => $filename]);
                 
                 Log::info('Brochure loaded successfully', [
                     'name' => $this->brochure->name,

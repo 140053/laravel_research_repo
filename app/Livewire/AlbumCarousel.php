@@ -3,7 +3,7 @@
 namespace App\Livewire;
 
 use Livewire\Component;
-use App\Models\Album;
+use App\Models\Albums;
 
 
 class AlbumCarousel extends Component
@@ -13,7 +13,7 @@ class AlbumCarousel extends Component
     protected $listeners = ['autoSlide'];
 
 
-    public function mount(Album $album)
+    public function mount(Albums $album)
     {
         $this->album = $album->load('Images'); // Eager load images
     }

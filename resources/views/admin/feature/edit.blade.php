@@ -62,8 +62,8 @@
                         @error('location') <span class="text-red-600 text-sm">{{ $message }}</span> @enderror
                     </div>
 
-                    <div class="mb-4 flex items-center hidden">
-                        <input type="checkbox" name="hidden" id="hidden" value="1" {{ old('hidden', $featureMaterial->hidden) ? 'checked' : '' }} class="mr-2">
+                    <div class="mb-4 flex items-center hiddee ">
+                        <input type="checkbox" name="hidden" id="hidden" value="0"  class="mr-2">
                         <label for="hidden" class="font-bold">Hidden</label>
                         @error('hidden') <span class="text-red-600 text-sm ml-2">{{ $message }}</span> @enderror
                     </div>
