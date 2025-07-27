@@ -1,4 +1,4 @@
-# Production Dockerfile - optimized single stage
+# Development Dockerfile for faster builds
 FROM php:8.3-fpm
 
 # Install system dependencies
@@ -34,9 +34,9 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 WORKDIR /var/www/html
 
-# Copy composer files first for better caching
+# Copy composer files
 COPY composer.json composer.lock ./
-RUN composer install --no-dev --optimize-autoloader --no-scripts --no-autoloader
+RUN composer install --no-dev --optimize-autoloader
 
 # Copy application files
 COPY . .
@@ -44,17 +44,16 @@ COPY . .
 # Install npm dependencies and build assets
 RUN npm install && npm run build
 
-# Set proper permissions
+# Set permissions
 RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 775 storage bootstrap/cache public/build
 
-# Generate autoloader and run optimizations
-RUN composer dump-autoload --optimize \
-    && php artisan config:cache \
+# Run optimizations
+RUN php artisan config:cache \
     && php artisan route:cache \
     && php artisan view:cache \
     && php artisan storage:link
 
 EXPOSE 9000
 
-CMD ["php-fpm"]
+CMD ["php-fpm"] 
