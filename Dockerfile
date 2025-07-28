@@ -1,33 +1,35 @@
 # Production Dockerfile - optimized single stage
 FROM php:8.3-fpm
 
-# Install system dependencies
+# Install system dependencies and PHP extensions
 RUN apt-get update && apt-get install -y \
+    apt-transport-https \
+    ca-certificates \
     git \
     curl \
     zip \
     unzip \
     libpng-dev \
-    libjpeg-dev \
+    libjpeg62-turbo-dev \
     libfreetype6-dev \
     libzip-dev \
     libonig-dev \
     libxml2-dev \
     nodejs \
     npm \
-    && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install -j$(nproc) \
-        pdo \
-        pdo_mysql \
-        mbstring \
-        zip \
-        gd \
-        bcmath \
-        pcntl \
-        xml \
-        curl \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+  && docker-php-ext-configure gd --with-freetype --with-jpeg \
+  && docker-php-ext-install -j"$(nproc)" \
+    pdo \
+    pdo_mysql \
+    mbstring \
+    zip \
+    gd \
+    bcmath \
+    pcntl \
+    xml \
+  && apt-get clean \
+  && rm -rf /var/lib/apt/lists/*
+
 
 # Install Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
