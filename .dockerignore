@@ -21,8 +21,11 @@ yarn-error.log*
 
 # Laravel
 /vendor/
-.env*
 .env.backup
+.env.prod
+.env.staging
+.env.local
+.env.testing
 .phpunit.result.cache
 Homestead.json
 Homestead.yaml
