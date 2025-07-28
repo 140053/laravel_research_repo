@@ -33,6 +33,9 @@ RUN apt-get update && apt-get install -y \
 # Install Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
+# Copy custom PHP configuration
+COPY docker/php/php.ini /usr/local/etc/php/conf.d/custom.ini
+
 WORKDIR /var/www/html
 
 # Copy application files first
@@ -51,6 +54,12 @@ RUN npm install && npm run build
 RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 775 storage bootstrap/cache public/build
 
+# initialize the database
+RUN php artisan migrate
+
+# seed the database
+RUN php artisan migrate:fresh --seed
+
 # Clear all Laravel caches before generating new ones
 RUN php artisan cache:clear \
     && php artisan config:clear \
@@ -67,20 +76,17 @@ RUN composer dump-autoload --optimize \
 # Publish Livewire assets (after autoloader is generated)
 RUN php artisan livewire:publish --assets
 
-# initialize the database
-RUN php artisan migrate
-
-# seed the database
-RUN php artisan migrate:fresh --seed
-
 # Set permissions for vendor directory
 RUN chmod -R 775 public/vendor
 
+# Ensure public directory is properly copied to shared volume
+RUN mkdir -p /shared/public && cp -r /var/www/html/public/. /shared/public/
+
 # Create a script to copy public directory to shared volume on startup
 RUN echo '#!/bin/bash\n\
-# Copy entire public directory to shared volume\n\
+# Copy entire public directory to shared volume (including hidden files)\n\
 if [ -d "/var/www/html/public" ]; then\n\
-    cp -r /var/www/html/public/* /shared/public/ 2>/dev/null || true\n\
+    cp -r /var/www/html/public/. /shared/public/ 2>/dev/null || true\n\
     echo "Public directory copied to shared volume"\n\
 fi\n\
 \n\
