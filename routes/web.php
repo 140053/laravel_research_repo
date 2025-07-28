@@ -7,10 +7,12 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ResearchPaperController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ArticlesController;
+use App\Http\Controllers\CsvImportController;
 
 
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\AlbumController;
+use App\Http\Controllers\FeatureMaterials;
 
 
 Route::get('/', [HomeController::class, 'index'])
@@ -22,12 +24,41 @@ Route::get('/about', [HomeController::class, 'about'])
 Route::get('/authors', [HomeController::class, 'authorsIndex'])
     ->name('authors');
 
-Route::get('/browse', [HomeController::class, 'browse'])
-    ->name('browse');
+Route::get('/feature', [HomeController::class, 'feature'])
+    ->name('feature');
+
+Route::get('/gallery', [HomeController::class, 'gallery'])
+    ->name('gallery');
+
+Route::get('/gallery/{album}', [HomeController::class, 'viewAlbum'])
+    ->name('gallery.view');
 
 Route::get('/categories', [HomeController::class, 'categories'])
     ->name('categories');
 
+// Route to serve PDF files with CORS headers
+Route::get('/pdf/{filename}', function ($filename) {
+    $path = storage_path('app/public/feature_materials/' . $filename);
+    
+    if (!file_exists($path)) {
+        abort(404);
+    }
+    
+    return response()->file($path, [
+        'Content-Type' => 'application/pdf',
+        'Access-Control-Allow-Origin' => '*',
+        'Access-Control-Allow-Methods' => 'GET, POST, PUT, DELETE, OPTIONS',
+        'Access-Control-Allow-Headers' => 'Content-Type, Authorization',
+    ]);
+})->name('pdf.serve');
+
+// Handle CORS preflight requests for PDF route
+Route::options('/pdf/{filename}', function () {
+    return response('', 200)
+        ->header('Access-Control-Allow-Origin', '*')
+        ->header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
+        ->header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+});
 
 Route::get('/phpinfo', function () {
     phpinfo();
@@ -44,6 +75,10 @@ Route::get('/admin', [AdminController::class, 'index'])
 
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
 
+    // CSV Import Routes
+    Route::get('csv-import', [CsvImportController::class, 'showImportForm'])->name('csv-import.form');
+    Route::post('csv-import', [CsvImportController::class, 'import'])->name('csv-import.process');
+    Route::get('csv-import/template', [CsvImportController::class, 'downloadTemplate'])->name('csv-import.template');
 
     // Import Route
     Route::get('research/import', [ResearchPaperController::class, 'showImportForm'])->name('research.import.index');
@@ -88,13 +123,17 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::delete('gallery/albums/{album}', [AlbumController::class, 'destroy'])->name('gallery.albums.destroy');
 
 
+    //FeatureMaterial CRUD routes
+    Route::get('feature', [FeatureMaterials::class, 'index'])->name('feature.index');
+    Route::get('feature/create', [FeatureMaterials::class, 'create'])->name('feature.create');
+    Route::post('feature', [FeatureMaterials::class, 'store'])->name('feature.store');
+    Route::get('feature/{featureMaterial}', [FeatureMaterials::class, 'show'])->name('feature.show');
+    Route::get('feature/{featureMaterial}/edit', [FeatureMaterials::class, 'edit'])->name('feature.edit');
+    Route::put('feature/{featureMaterial}', [FeatureMaterials::class, 'update'])->name('feature.update');
+    Route::delete('feature/{featureMaterial}', [FeatureMaterials::class, 'destroy'])->name('feature.destroy');
+
 
 });
-
-
-
-
-
 
 
 
@@ -115,19 +154,6 @@ Route::middleware(['auth', 'role:user'])->prefix('dashboard')->name('dashboard.'
 
 
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

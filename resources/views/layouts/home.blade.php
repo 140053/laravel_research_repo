@@ -8,6 +8,9 @@
 
     @vite(['resources/css/app.css', 'resources/js/app.js']) {{-- Optional if you're using Vite --}}
 
+    <!-- Livewire Styles and Scripts -->
+    @livewireStyles
+
         <script>
             // Check localStorage for a saved theme preference
             const savedTheme = localStorage.getItem('theme');
@@ -57,7 +60,8 @@
           <!-- Desktop Menu -->
           <nav class="hidden md:flex space-x-4 ">
             <a href="/" class="text-gray-700 hover:text-indigo-600 dark:text-white">Home</a>
-            <a href="/browse" class="text-gray-700 hover:text-indigo-600 dark:text-white hidden">Browse</a>
+            <a href="/feature" class="text-gray-700 hover:text-indigo-600 dark:text-white">Features</a>
+            <a href="/gallery" class="text-gray-700 hover:text-indigo-600 dark:text-white">Documentation</a>
             <a href="/authors" class="text-gray-700 hover:text-indigo-600 dark:text-white">Authors</a>
             <a href="/categories" class="text-gray-700 hover:text-indigo-600 dark:text-white hidden">Categories</a>
             <a href="/about" class="text-gray-700 hover:text-indigo-600 dark:text-white">About</a>
@@ -81,6 +85,8 @@
         <div id="mobile-menu" class="md:hidden px-4 pb-4 hidden">
           <nav class="flex flex-col space-y-2">
             <a href="/" class="text-gray-700 hover:text-indigo-600 dark:text-white">Home</a>
+            <a href="/feature" class="text-gray-700 hover:text-indigo-600 dark:text-white">Features</a>
+            <a href="/gallery" class="text-gray-700 hover:text-indigo-600 dark:text-white">Documentation</a>
             <a href="/authors" class="text-gray-700 hover:text-indigo-600 dark:text-white">Authors</a>
             <a href="/about" class="text-gray-700 hover:text-indigo-600 dark:text-white">About</a>
            @auth
@@ -121,5 +127,18 @@
       <p>&copy; 2025 {{ config('app.name')   }}. All rights reserved.</p>
     </div>
   </footer>
+
+  <!-- Livewire Scripts -->
+  @livewireScripts
+  
+  <script>
+    console.log('Livewire scripts loaded');
+    document.addEventListener('livewire:init', () => {
+      console.log('Livewire initialized');
+    });
+    document.addEventListener('livewire:load', () => {
+      console.log('Livewire loaded');
+    });
+  </script>
 </body>
 </html>

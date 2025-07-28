@@ -71,7 +71,7 @@
                 current: 0,
                 slides: [
                     @foreach ($album->Images as $al)
-                        '{{ asset($al->image_path) }}',
+                        '{{ Storage::disk('public')->url($al->image_path) }}',
                     @endforeach                   
                 ],
                 captions: [

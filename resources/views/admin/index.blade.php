@@ -60,6 +60,20 @@
                         </ul>
                     </div>
 
+
+                    <div class="p-6 text-gray-900 dark:text-gray-100 ">
+                        <h3 class="text-lg font-semibold">Feature Materials Management</h3>
+                        <ul class="mt-4 ">
+                            <li class="p-4 shadow mb-2">
+                                <a href="{{ route('admin.feature.index') }}" class="text-blue-600 hover:underline flex justify-between">
+                                    Manage Feature Materials
+                                    <span class=" ml-3 inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-green-600/20 ring-inset"></span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+
                     <div class="p-6 text-gray-900 dark:text-gray-100">
                         <h3 class="text-lg font-semibold">User Management</h3>
                         <ul class="mt-4 ">

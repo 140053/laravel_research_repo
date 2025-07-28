@@ -53,7 +53,7 @@
     
     <div class="hidden">
         <label class="block font-semibold dark:text-gray-300">Department</label>
-        <input type="text" name="department" value="{{ old('department', $paper->department ?? '') }}" required class="w-full p-2 border rounded dark:bg-gray-700 dark:text-gray-300">
+        <input type="text" name="department" value="{{ old('department', $paper->department ?? '') }}"   class="w-full p-2 border rounded dark:bg-gray-700 dark:text-gray-300">
     </div>
 
     <div>

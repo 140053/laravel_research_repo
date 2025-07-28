@@ -49,6 +49,9 @@
                             <li class="text-gray-600">No users found.</li>
                         @endforelse
                     </ul>
+                    <div class="mt-6">
+                        {{ $users->links() }}
+                    </div>
                 </div>
             </div>
         </div>

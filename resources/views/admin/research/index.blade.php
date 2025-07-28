@@ -30,7 +30,7 @@
                 <a href="{{ route('admin.research.create') }}" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 m-5 ">
                     + Add New Research
                 </a>
-                <a href="{{ route('admin.research.import.index') }}" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Import CSV</a>
+                <a href="{{ route('admin.csv-import.form') }}" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Import CSV</a>
             </div>
 
             {{-- ✅ Table with Card and Actions --}}

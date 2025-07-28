@@ -68,5 +68,32 @@ php artisan serve
 
 
 
+## Seeder Option 
+
+```
+php artisan db:seed --class=DevSeed
+```
 
 
+
+## Dev build error 
+
+🔧 Option 1: Fix Permissions (Recommended)
+Give write permission to the public/build directory:
+
+```
+sudo chown -R $USER:$USER public/build
+chmod -R 755 public/build
+```
+
+
+🔧 Option 2: Delete the folder manually and rebuild
+```
+sudo rm -rf public/build
+npm run build
+```
+
+🔧 Option 3: Run the build as root (⚠️ Not recommended long-term)
+```
+sudo npm run build
+```

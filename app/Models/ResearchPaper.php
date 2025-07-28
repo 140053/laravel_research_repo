@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class ResearchPaper extends Model
 {
+    use HasFactory;
+
     // Allow mass assignment for these fields
     protected $fillable = [
         'title',
@@ -14,19 +17,23 @@ class ResearchPaper extends Model
         'tm',
         'type',
         'publisher',
-        'citation', // 👈 add this
+        'citation',
         'isbn',
         'abstract',
         'year',
         'department',
         'pdf_path',
         'external_link',
-        'keyword', // ✅ add this
+        'keyword',
+        'status',
+        'restricted',
     ];
     
 
     protected $casts = [
         'year' => 'integer',
+        'status' => 'boolean',
+        'restricted' => 'boolean',
     ];
 
     public function tags()
@@ -38,5 +45,4 @@ class ResearchPaper extends Model
     {
         return $this->tags->pluck('name')->implode(', ');
     }
-
 }
