@@ -140,7 +140,9 @@
                 @endif
             </div>
         </section>
+
     </div>
+   
 
     <!-- Enhanced Lightbox Modal -->
     <div id="lightbox" class="fixed inset-0 bg-black bg-opacity-95 z-50 hidden flex items-center justify-center p-4">

@@ -33,7 +33,7 @@ class HomeController extends Controller
     }
 
     public function gallery(){
-        $albums = Albums::with('images')->get();
+        $albums = Albums::with('images')->paginate(6);
         //dd($albums);
         return view('gallery', compact('albums'));
     }
