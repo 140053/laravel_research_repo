@@ -55,23 +55,23 @@ RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 775 storage bootstrap/cache public/build
 
 # initialize the database
-RUN php artisan migrate
+#RUN php artisan migrate
 
 # seed the database
-RUN php artisan migrate:fresh --seed
+#RUN php artisan migrate:fresh --seed
 
 # Clear all Laravel caches before generating new ones
-RUN php artisan cache:clear \
-    && php artisan config:clear \
-    && php artisan route:clear \
-    && php artisan view:clear
+#RUN php artisan cache:clear \
+#    && php artisan config:clear \
+#    && php artisan route:clear \
+#    && php artisan view:clear
 
 # Generate autoloader and run optimizations
-RUN composer dump-autoload --optimize \
-    && php artisan config:cache \
-    && php artisan route:cache \
-    && php artisan view:cache \
-    && php artisan storage:link
+RUN composer dump-autoload --optimize 
+#    && php artisan config:cache \
+#    && php artisan route:cache \
+#    && php artisan view:cache \
+RUN php artisan storage:link
 
 # Publish Livewire assets (after autoloader is generated)
 RUN php artisan livewire:publish --assets

@@ -1,6 +1,8 @@
 
 services:
   app:
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     build:
       context: .
       dockerfile: Dockerfile
@@ -30,6 +32,8 @@ services:
   nginx:
     image: nginx:alpine
     container_name: insighthub-nginx
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     ports:
       - "8001:80"
     volumes:
