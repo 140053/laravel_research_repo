@@ -13,7 +13,7 @@ class Tags extends Component
     public function mount()
     {
         $this->tags = Cache::remember('tags_comp', 60, function () {
-            return Tag::all();
+            return Tag::limit(10)->get();
         });
     }
 
