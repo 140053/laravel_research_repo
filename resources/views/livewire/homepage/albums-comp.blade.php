@@ -6,7 +6,7 @@
 
             <div class="relative group rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300">
                 @if ($album->images->first())
-                    <img src="{{ Storage::disk('public')->url($album->images->first()->image_path) }}" alt="Album Image"
+                    <img src="{{ asset('storage/' . $album->images->first()->image_path) }}" alt="Album Image"
                          class="w-full h-48 object-cover" loading="lazy">
                 @else
                     <div class="w-full h-48 bg-gray-200 flex items-center justify-center text-gray-500">
